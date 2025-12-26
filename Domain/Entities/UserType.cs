@@ -10,6 +10,6 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public string Type { get; set; }
-        public List<User> users { get; set; }
+        public ICollection<User> users { get; set; }
     }
 }

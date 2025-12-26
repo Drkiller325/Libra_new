@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
