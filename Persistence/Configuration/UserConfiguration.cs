@@ -14,19 +14,19 @@ namespace Persistence.Configuration
     {
         public UserConfiguration()
         {
-            this.HasKey(x => x.Id);
+            HasKey(x => x.Id);
 
-            this.Property(x => x.Name).HasMaxLength(128).IsRequired();
+            Property(x => x.Name).HasMaxLength(128).IsRequired();
 
-            this.Property(x => x.Login).HasMaxLength(10).IsRequired();
+            Property(x => x.Login).HasMaxLength(10).IsRequired();
 
-            this.HasIndex(x => x.Login).IsUnique();
+            HasIndex(x => x.Login).IsUnique();
 
-            this.Property(x => x.Email).HasMaxLength(128).IsRequired();
+            Property(x => x.Email).HasMaxLength(128).IsRequired();
 
-            this.HasIndex(x => x.Email).IsUnique();
+            HasIndex(x => x.Email).IsUnique();
 
-            this.HasRequired(x => x.UserType)
+            HasRequired(x => x.UserType)
                 .WithMany(x => x.users)
                 .HasForeignKey(x => x.UserTypeId);
         }

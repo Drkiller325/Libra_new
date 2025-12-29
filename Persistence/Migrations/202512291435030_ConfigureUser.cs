@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigrate : DbMigration
+    public partial class ConfigureUser : DbMigration
     {
         public override void Up()
         {
@@ -16,6 +16,7 @@
                         Email = c.String(nullable: false, maxLength: 128),
                         Login = c.String(nullable: false, maxLength: 10),
                         Telephone = c.String(),
+                        IsEnabled = c.Boolean(nullable: false),
                         UserTypeId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

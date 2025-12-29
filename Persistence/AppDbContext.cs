@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using Domain.Entities;
 using Persistence.Configuration;
+using Persistence.Migrations;
 
 namespace Persistence
 {
-    class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext() : base("DefaultConnection") { }
+        public AppDbContext() : base("DefaultConnection") 
+        {
+            
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserType> UserTypes { get; set; }

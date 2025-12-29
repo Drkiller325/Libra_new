@@ -53,9 +53,9 @@
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
-    <Compile Include="Migrations\202512261540520_InitialMigrate.cs" />
-    <Compile Include="Migrations\202512261540520_InitialMigrate.Designer.cs">
-      <DependentUpon>202512261540520_InitialMigrate.cs</DependentUpon>
+    <Compile Include="Migrations\202512291435030_ConfigureUser.cs" />
+    <Compile Include="Migrations\202512291435030_ConfigureUser.Designer.cs">
+      <DependentUpon>202512291435030_ConfigureUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,8 +75,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202512261540520_InitialMigrate.resx">
-      <DependentUpon>202512261540520_InitialMigrate.cs</DependentUpon>
+    <Folder Include="DataSeeders\Seeds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202512291435030_ConfigureUser.resx">
+      <DependentUpon>202512291435030_ConfigureUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

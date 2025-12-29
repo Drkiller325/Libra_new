@@ -14,18 +14,20 @@ namespace Domain.Entities
         public string Login { get; private set; }
         public string PasswordHash => _passwordHash;
         public string Telephone { get; private set; }
+        public bool IsEnabled { get; private set; }
         public int UserTypeId { get; private set; }
         public UserType UserType { get; private set; }
 
         private string _passwordHash;
         private User() { }
 
-        public User(string name, string email, string login, string password, string telephone, UserType userType)
+        public User(string name, string email,bool isEnabled, string login, string password, string telephone, UserType userType)
         {
             Name = name;
             Email = email;
             Login = login;
             Telephone = telephone;
+            IsEnabled = isEnabled;
             UserType = userType ?? throw new ArgumentNullException(nameof(userType));
             setPassword(password);
 
