@@ -57,10 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Common\AuditableEntityId.cs" />
+    <Compile Include="Common\BaseEntityId.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
+    <Compile Include="Interfaces\IAuditableEntityId.cs" />
+    <Compile Include="Interfaces\IBaseEntityId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
