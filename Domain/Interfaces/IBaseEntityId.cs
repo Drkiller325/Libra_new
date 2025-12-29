@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace Domain
 {
-    public class Class1
+    public interface IBaseEntityId<T>
     {
+        T Id { get; set; }
     }
 }

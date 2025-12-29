@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application
+namespace Domain.Common
 {
-    public class Class1
+    public class BaseEntityId
     {
+        public int Id { get; set; }
     }
 }
