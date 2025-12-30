@@ -7,10 +7,11 @@ using System.Data.Entity;
 using Domain.Entities;
 using Persistence.Configuration;
 using Persistence.Migrations;
+using Application.Interfaces;
 
 namespace Persistence
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
         public AppDbContext() : base("DefaultConnection") 
         {
