@@ -15,6 +15,7 @@ namespace Web.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR();
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
