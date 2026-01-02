@@ -21,7 +21,7 @@ namespace Application.Users.Commands.LoginUser
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Password cannot be empty")
                 .NotNull().WithMessage("Password cannot be null")
-                .MinimumLength(8).WithMessage("Password must have at least 8 characters");
+                .MinimumLength(4).WithMessage("Password must have at least 8 characters");
         }
     }
 }

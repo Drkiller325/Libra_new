@@ -27,16 +27,13 @@ namespace Web.App_Start
                 return t => componentContext.Resolve(t);
             });
 
-       
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
             builder.Register(a => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
 
-            builder.RegisterAssemblyTypes(typeof(ApplicationDependencyInjection).Assembly)
-                .Where(t => t.GetInterfaces().Any(i => i.IsClosedTypeOf(typeof(IValidator<>))))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+
+            builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             InfrastructureDependencyInjection.Register(builder);
             ApplicationDependencyInjection.RegisterApplication(builder);

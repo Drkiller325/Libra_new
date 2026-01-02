@@ -1,12 +1,13 @@
-﻿using Autofac;
-using Autofac.Integration.SignalR;
+﻿using Application.Users.Queries;
+using Autofac;
+using FluentValidation;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
 
 
 namespace Application.Extentions
@@ -16,12 +17,16 @@ namespace Application.Extentions
 
         public static void RegisterApplication(ContainerBuilder builder)
         {
+            //FluentApi Validator
             builder.RegisterAssemblyTypes(typeof(ApplicationDependencyInjection).Assembly)
                 .Where(t => t.GetInterfaces().Any(i => i.IsClosedTypeOf(typeof(IValidator<>))))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterHubs(Assembly.GetExecutingAssembly());
+            // Mediatr handlers
+            builder.RegisterAssemblyTypes(typeof(GetUserByUsernameAndPasswordHandler).Assembly)
+                   .AsClosedTypesOf(typeof(IRequestHandler<,>))
+                   .InstancePerLifetimeScope();
         }
     }
 }
