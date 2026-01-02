@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries
 {
-    public class GetUserByUsernameAndPassword : IRequest<UserByUsernameAndPasswordViewModel>
+    public class GetUserByUsernameAndPassword : IRequest<UserByNameAndPasswordViewModel>
     {
         public string Login { get; set; }
         public string Password { get; set; }
     }
 
-    public class GetUserByUsernameAndPasswordHandler : IRequestHandler<GetUserByUsernameAndPassword, UserByUsernameAndPasswordViewModel>
+    public class GetUserByUsernameAndPasswordHandler : IRequestHandler<GetUserByUsernameAndPassword, UserByNameAndPasswordViewModel>
     {
         private readonly IAppDbContext _context;
 
@@ -23,7 +23,7 @@ namespace Application.Users.Queries
         {
             _context = context;
         }
-        public async Task<UserByUsernameAndPasswordViewModel> Handle(GetUserByUsernameAndPassword request, CancellationToken cancellationToken)
+        public async Task<UserByNameAndPasswordViewModel> Handle(GetUserByUsernameAndPassword request, CancellationToken cancellationToken)
         {
             try
             {
@@ -34,9 +34,10 @@ namespace Application.Users.Queries
 
                 if (!user.checkPassword(request.Password)) return null;
 
-                var userByUsernameAndPasswordDto = new UserByUsernameAndPasswordViewModel
+                var userByUsernameAndPasswordDto = new UserByNameAndPasswordViewModel
                 {
                     Id = user.Id,
+                    Name = user.Name,
                     Login = user.Login,
                     Password = user.PasswordHash,
                     Email = user.Email,

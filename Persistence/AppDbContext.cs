@@ -8,6 +8,7 @@ using Domain.Entities;
 using Persistence.Configuration;
 using Persistence.Migrations;
 using Application.Interfaces;
+using System.Threading;
 
 namespace Persistence
 {
@@ -20,6 +21,16 @@ namespace Persistence
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
+
+        public void Save()
+        {
+            SaveChanges();
+        }
+
+        public async Task<int> SaveAsync(CancellationToken cancellationToken)
+        {
+            return await SaveChangesAsync(cancellationToken);
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

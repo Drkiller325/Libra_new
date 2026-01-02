@@ -184,11 +184,14 @@
     <Compile Include="Extentions\ApplicationDependencyInjection.cs" />
     <Compile Include="Interfaces\IAppDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\Commands\AddUser\AddUserCommand.cs" />
+    <Compile Include="Users\Commands\AddUser\AddUserCommandValidator.cs" />
     <Compile Include="Users\Commands\LoginUser\LoginUserCommand.cs" />
     <Compile Include="Users\Commands\LoginUser\LoginUserValidator.cs" />
     <Compile Include="Users\Queries\GetUserByUsernameAndPassword.cs" />
+    <Compile Include="Users\ViewModels\AddUserViewModel.cs" />
     <Compile Include="Users\ViewModels\LoginUserViewModel.cs" />
-    <Compile Include="Users\ViewModels\UserByUsernameAndPasswordViewModel.cs" />
+    <Compile Include="Users\ViewModels\UserByNameAndPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

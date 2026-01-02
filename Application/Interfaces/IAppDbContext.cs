@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
@@ -12,5 +13,9 @@ namespace Application.Interfaces
     {
         DbSet<User> Users { get; set; }
         DbSet<UserType> UserTypes { get; set; }
+
+        void Save();
+
+        Task<int> SaveAsync(CancellationToken cancellationToken);
     }
 }
