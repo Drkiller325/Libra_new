@@ -15,6 +15,7 @@
                         Name = c.String(nullable: false, maxLength: 128),
                         Email = c.String(nullable: false, maxLength: 128),
                         Login = c.String(nullable: false, maxLength: 10),
+                        PasswordHash = c.String(),
                         Telephone = c.String(),
                         IsEnabled = c.Boolean(nullable: false),
                         UserTypeId = c.Int(nullable: false),
