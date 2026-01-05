@@ -57,7 +57,7 @@
             </a>
         </div>
         <div class="dropdown-container nav-link px-3">
-            <a class="nav-link">@Html.ActionLink("Add User", "AddUser", "Account")</a>
+            @Html.ActionLink("Add User", "Index", "Admin", new { area = "" }, new { @class = "nav-link text-light" })
             <a class="nav-link" href="#">Link 2</a>
             <a class="nav-link" href="#">Link 3</a>
         </div>

@@ -45,13 +45,12 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
-    <script src="~/Scripts/dataTables.bootstrap5.js"></script>
+    @Scripts.Render("~/bundles/datatables");
     @RenderSection("Scripts", required: false)
 </body>
 </html>
 
-
+ 
 <script>
         const datasets = {
             weatherData: [

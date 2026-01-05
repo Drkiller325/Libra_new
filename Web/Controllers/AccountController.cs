@@ -92,13 +92,6 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddUser(AddUserViewModel)
-        {
-
-        }
-
         public ActionResult Logout()
         {
             authenticationManager.SignOut();
