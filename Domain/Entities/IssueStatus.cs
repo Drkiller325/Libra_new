@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class UserType : BaseEntityId
+    public class IssueStatus : BaseEntityId
     {
-        public string Type { get; set; }
-        public ICollection<User> users { get; set; } = new HashSet<User>();
+        public string Status { get; set; }
+
         public ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
     }
 }

@@ -20,6 +20,13 @@ namespace Persistence
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<Issue> Issues { get; set; }
+        public DbSet<IssueStatus> Statuses { get; set; }
+        public DbSet<IssueType> IssueTypes { get; set; }
+        public DbSet<Pos> Pos { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<ConnectionType> ConnectionTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

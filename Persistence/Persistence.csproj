@@ -77,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
+    <Compile Include="Configuration\IssueConfiguration.cs" />
+    <Compile Include="Configuration\IssueTypeConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="InfrastructureDependencyInjection.cs" />
     <Compile Include="Migrations\202512291435030_ConfigureUser.cs" />

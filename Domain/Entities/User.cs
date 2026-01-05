@@ -17,6 +17,8 @@ namespace Domain.Entities
         public bool IsEnabled { get; private set; }
         public int UserTypeId { get; private set; }
         public UserType UserType { get; private set; }
+        public ICollection<Log> Logs { get; set; } = new HashSet<Log>();
+        public ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
 
         private User() { }
 
