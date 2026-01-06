@@ -18,7 +18,8 @@ namespace Domain.Entities
         public int UserTypeId { get; private set; }
         public UserType UserType { get; private set; }
         public ICollection<Log> Logs { get; set; } = new HashSet<Log>();
-        public ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
+        public ICollection<Issue> IssuesCreated { get; set; } = new HashSet<Issue>();
+        public ICollection<Issue> IssuesModefied { get; set; } = new HashSet<Issue>();
 
         private User() { }
 

@@ -14,33 +14,48 @@ namespace Persistence.Configuration
         {
             HasKey(x => x.Id);
 
-            HasRequired(x => x.CreatedByUser)
-                .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.CreatedBy);
+            Property(x => x.Priority).HasMaxLength(10).IsRequired();
 
-            HasRequired(x => x.LastModifiedByUser)
-                .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.LastModifiedBy);
+            Property(x => x.Memo).HasMaxLength(128).IsOptional();
+
+            Property(x => x.Description).HasMaxLength(300).IsOptional();
+
+            Property(x => x.LastModified).IsOptional();
+
+            HasRequired(x => x.CreatedBy)
+                .WithMany(x => x.IssuesCreated)
+                .HasForeignKey(x => x.CreatedById)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(x => x.LastModifiedBy)
+                .WithMany(x => x.IssuesModefied)
+                .HasForeignKey(x => x.LastModifiedById)
+                .WillCascadeOnDelete(false);
 
             HasRequired(x => x.Type)
                 .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.TypeId);
+                .HasForeignKey(x => x.TypeId)
+                .WillCascadeOnDelete(false);
 
-            HasRequired(x => x.SubType)
-                .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.SubTypeId);
+            HasOptional(x => x.SubType)
+                .WithMany()
+                .HasForeignKey(x => x.SubTypeId)
+                .WillCascadeOnDelete(false);
 
             HasRequired(x => x.Status)
                 .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.StatusId);
+                .HasForeignKey(x => x.StatusId)
+                .WillCascadeOnDelete(false);
 
             HasRequired(x => x.Assigned)
                 .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.AssignedId);
+                .HasForeignKey(x => x.AssignedId)
+                .WillCascadeOnDelete(false);
 
             HasRequired(x => x.Pos)
                 .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.PosId);
+                .HasForeignKey(x => x.PosId)
+                .WillCascadeOnDelete(false);
 
 
         }

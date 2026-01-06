@@ -15,8 +15,8 @@ namespace Domain.Entities
         public string Solution { get; set; }
         public int ProblemId { get; set; } // what is this?
 
-        public User CreatedByUser { get; set; }
-        public User LastModifiedByUser { get; set; }
+        public User CreatedBy { get; set; }
+        public User LastModifiedBy { get; set; }
         public int AssignedId { get; set; }
         public UserType Assigned { get; set; }
 
@@ -24,7 +24,7 @@ namespace Domain.Entities
         public Pos Pos { get; set; }
 
         public int TypeId { get; set; }
-        public int SubTypeId { get; set; }
+        public int? SubTypeId { get; set; }
         public IssueType Type { get; set; }
         public IssueType SubType { get; set; }
 

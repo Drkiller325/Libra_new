@@ -28,7 +28,8 @@ namespace Persistence.Configuration
 
             HasRequired(x => x.UserType)
                 .WithMany(x => x.users)
-                .HasForeignKey(x => x.UserTypeId);
+                .HasForeignKey(x => x.UserTypeId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

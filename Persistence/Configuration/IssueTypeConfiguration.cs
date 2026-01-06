@@ -12,7 +12,16 @@ namespace Persistence.Configuration
     {
         public IssueTypeConfiguration()
         {
-            
+            HasKey(x => x.Id);
+
+            Property(x => x.IssueLevel).IsRequired();
+
+            Property(x => x.Name).IsRequired().HasMaxLength(50);
+
+            HasOptional(x => x.ParentIssue)
+                .WithMany(x => x.SubTypes)
+                .HasForeignKey(x => x.ParentIssueId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

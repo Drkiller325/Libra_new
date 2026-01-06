@@ -77,13 +77,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
+    <Compile Include="Configuration\CityConfiguration.cs" />
+    <Compile Include="Configuration\ConnectionTypeConfiguration.cs" />
     <Compile Include="Configuration\IssueConfiguration.cs" />
+    <Compile Include="Configuration\IssueStatusConfiguration.cs" />
     <Compile Include="Configuration\IssueTypeConfiguration.cs" />
+    <Compile Include="Configuration\LogConfiguration.cs" />
+    <Compile Include="Configuration\PosConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
+    <Compile Include="Configuration\UserTypeConfiguration.cs" />
     <Compile Include="InfrastructureDependencyInjection.cs" />
-    <Compile Include="Migrations\202512291435030_ConfigureUser.cs" />
-    <Compile Include="Migrations\202512291435030_ConfigureUser.Designer.cs">
-      <DependentUpon>202512291435030_ConfigureUser.cs</DependentUpon>
+    <Compile Include="Migrations\202601061412444_InitialMigrate.cs" />
+    <Compile Include="Migrations\202601061412444_InitialMigrate.Designer.cs">
+      <DependentUpon>202601061412444_InitialMigrate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,8 +112,8 @@
     <Folder Include="DataSeeders\Seeds\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202512291435030_ConfigureUser.resx">
-      <DependentUpon>202512291435030_ConfigureUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202601061412444_InitialMigrate.resx">
+      <DependentUpon>202601061412444_InitialMigrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
