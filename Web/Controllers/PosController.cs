@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Libra.Controllers
 {
+    [Authorize]
     public class PosController : Controller
     {
         // GET: Pos

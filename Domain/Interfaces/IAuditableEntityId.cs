@@ -8,9 +8,9 @@ namespace Domain.Interfaces
 {
     public interface IAuditableEntityId : IBaseEntityId<int>
     {
-        int CreatedBy { get; set; }
+        int CreatedById { get; set; }
         DateTime Created {  get; set; }
-        int? LastModifiedBy { get; set; }
+        int? LastModifiedById { get; set; }
         DateTime? LastModified { get; set; }
     }
 }

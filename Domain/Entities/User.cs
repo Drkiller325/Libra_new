@@ -12,13 +12,15 @@ namespace Domain.Entities
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Login { get; private set; }
-        public string PasswordHash => _passwordHash;
+        public string PasswordHash { get; private set; }
         public string Telephone { get; private set; }
         public bool IsEnabled { get; private set; }
         public int UserTypeId { get; private set; }
         public UserType UserType { get; private set; }
+        public ICollection<Log> Logs { get; set; } = new HashSet<Log>();
+        public ICollection<Issue> IssuesCreated { get; set; } = new HashSet<Issue>();
+        public ICollection<Issue> IssuesModefied { get; set; } = new HashSet<Issue>();
 
-        private string _passwordHash;
         private User() { }
 
         public User(string name, string email,bool isEnabled, string login, string password, string telephone, UserType userType)
@@ -35,12 +37,12 @@ namespace Domain.Entities
 
         public void setPassword(string password)
         {
-            _passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
         }
 
         public bool checkPassword(string password)
         {
-            return BCrypt.Net.BCrypt.Verify(password, _passwordHash);
+            return BCrypt.Net.BCrypt.Verify(password, PasswordHash);
         }
     }
 }

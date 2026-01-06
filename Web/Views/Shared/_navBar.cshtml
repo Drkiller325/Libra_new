@@ -14,17 +14,59 @@
             </a>
         </div>
 
-        <div class="nav-item px-3">
-            <a class="nav-link" href="Pos" data-spa>
+        <div class="nav-item px-3 drop">
+            <a class="nav-link">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Positions
             </a>
         </div>
+        <div class="dropdown-container nav-link px-3">
+            <a class="nav-link" href="Pos" data-spa>Pos</a>
+            <a class="nav-link" href="#" data-spa>Link 2</a>
+            <a class="nav-link" href="#" data-spa>Link 3</a>
+        </div>
 
-        <div class="nav-item px-3">
-            <a class="nav-link" href="weather" data-spa>
+        <div class="nav-item px-3 drop">
+            <a class="nav-link">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
             </a>
+        </div>
+        <div class="dropdown-container nav-link px-3">
+            <a class="nav-link" href="#" data-spa>Link 1</a>
+            <a class="nav-link" href="#" data-spa>Link 2</a>
+            <a class="nav-link" href="#" data-spa>Link 3</a>
+        </div>
+
+        <div class="nav-item px-3 drop">
+            <a class="nav-link">Dropdown</a>
+        </div>
+        <div class="dropdown-container nav-link px-3">
+            <a class="nav-link" href="#">Link 1</a>
+            <a class="nav-link" href="#">Link 2</a>
+            <a class="nav-link" href="#">Link 3</a>
         </div>
     </nav>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var drop = document.getElementsByClassName("dropdown-container");
+        var i;
+        for (i = 0; i < drop.length; i++) {
+            drop[i].style.display = "none";
+        }
+    });
+    var dropdown = document.getElementsByClassName("drop");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>

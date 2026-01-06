@@ -10,6 +10,7 @@ namespace Domain.Entities
     public class UserType : BaseEntityId
     {
         public string Type { get; set; }
-        public ICollection<User> users { get; set; }
+        public ICollection<User> users { get; set; } = new HashSet<User>();
+        public ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
     }
 }
