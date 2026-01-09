@@ -60,6 +60,13 @@
     <Compile Include="Common\AuditableEntityId.cs" />
     <Compile Include="Common\BaseEntityId.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
+    <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\ConnectionType.cs" />
+    <Compile Include="Entities\Issue.cs" />
+    <Compile Include="Entities\IssueStatus.cs" />
+    <Compile Include="Entities\IssueType.cs" />
+    <Compile Include="Entities\Log.cs" />
+    <Compile Include="Entities\Pos.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
     <Compile Include="Interfaces\IAuditableEntityId.cs" />
