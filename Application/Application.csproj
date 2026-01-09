@@ -192,9 +192,13 @@
     <Compile Include="Users\Commands\LoginUser\LoginUserCommand.cs" />
     <Compile Include="Users\Commands\LoginUser\LoginUserValidator.cs" />
     <Compile Include="Users\Queries\GetUserByUsernameAndPassword.cs" />
+    <Compile Include="Users\Queries\GetUserRoles.cs" />
+    <Compile Include="Users\Queries\GetUsers.cs" />
     <Compile Include="Users\ViewModels\AddUserViewModel.cs" />
     <Compile Include="Users\ViewModels\LoginUserViewModel.cs" />
+    <Compile Include="Users\ViewModels\RoleViewModel.cs" />
     <Compile Include="Users\ViewModels\UserByNameAndPasswordViewModel.cs" />
+    <Compile Include="Users\ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

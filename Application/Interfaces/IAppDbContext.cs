@@ -23,6 +23,6 @@ namespace Application.Interfaces
 
         void Save();
 
-        Task<int> SaveAsync(CancellationToken cancellationToken);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

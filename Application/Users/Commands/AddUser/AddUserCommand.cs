@@ -42,7 +42,7 @@ namespace Application.Users.Commands.AddUser
 
             _context.Users.AddOrUpdate(user);
 
-            if (await _context.SaveAsync(cancellationToken) == 1) return true;
+            if (await _context.SaveChangesAsync(cancellationToken) == 1) return true;
 
             return false;
         }

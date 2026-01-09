@@ -1,0 +1,34 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-lg-start fw-bold">
+    <h2 class="display-4">Users manager</h2>
+    <hr />
+</div>
+
+
+<div class="table-responsive">
+    <table id="user" data-dt="true" class="display stripe cell-border" style="width:100%" data-dataset="userData">
+        <thead>
+            <tr class="text-white" style="background-color: #215d9f;">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Telephone</th>
+                <th>UserRole</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        SpaDataTables.registerDataset("userData", @Html.Raw(Json.Encode(Model)));
+
+        SpaDataTables.initialize();
+    </script>
+    }

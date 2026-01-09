@@ -18,7 +18,7 @@
 
         <main>
             <div class="top-row px-4">
-                @if (User.Identity.IsAuthenticated)
+                @if (User.IsInRole("admin"))
                 {
                     <a class="nav-link" style="color: cornflowerblue" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" style="margin-right: 0px" viewBox="0 0 16 16">
@@ -46,99 +46,7 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/datatables");
+    <script src="~/Scripts/Custom/SPA_navigation.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-
- 
-<script>
-        const datasets = {
-            weatherData: [
-            { id: 1, name: "John Doe", email: "john@example.com", age: 28, country: "USA" },
-            { id: 2, name: "Jane Smith", email: "jane@example.com", age: 32, country: "Canada" },
-            { id: 3, name: "Michael Brown", email: "michael@example.com", age: 45, country: "UK" },
-            { id: 4, name: "Emily Johnson", email: "emily@example.com", age: 22, country: "Australia" },
-            { id: 5, name: "David Wilson", email: "david@example.com", age: 37, country: "Germany" },
-            { id: 6, name: "Sarah Lee", email: "sarah@example.com", age: 29, country: "France" },
-            { id: 7, name: "Daniel Kim", email: "daniel@example.com", age: 41, country: "South Korea" },
-            { id: 8, name: "Olivia Martinez", email: "olivia@example.com", age: 26, country: "Spain" },
-            { id: 9, name: "James Anderson", email: "james@example.com", age: 34, country: "USA" },
-            { id: 10, name: "Sophia Hernandez", email: "sophia@example.com", age: 30, country: "Mexico" }
-        ],
-            userData: [
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "New York", Temperature: "5°C", Condition: "Cloudy" },
-            { City: "London", Temperature: "2°C", Condition: "Rainy" }
-            ]
-        };
-
-        function initializeTables() {
-        const tables = document.querySelectorAll("table[data-dt='true']");
-
-            tables.forEach(table => {
-                if (!table.classList.contains("dt-initialized")) {
-                    const datasetName = table.dataset.dataset;
-                    const data = datasets[datasetName] || [];
-
-                    // Generate columns based on <th> text
-                    const columns = Array.from(table.querySelectorAll("thead th")).map(th => {
-                        return { data: th.textContent.trim() };
-                    });
-
-                    $(table).DataTable({
-                        data: data,
-                        columns: columns
-                    });
-
-                    table.classList.add("dt-initialized");
-                }
-            });
-        }
-
-        const content = document.getElementById("spa-content");
-
-        async function loadPage(url, pushState = true) {
-            content.classList.add("loading");
-
-            const response = await fetch(url, {
-                headers: { "X-Requested-With": "XMLHttpRequest" }
-            });
-
-            const html = await response.text();
-            const doc = new DOMParser().parseFromString(html, "text/html");
-            const newContent = doc.querySelector("#spa-content");
-
-            setTimeout(() => {
-                content.innerHTML = newContent.innerHTML;
-                content.classList.remove("loading");
-
-                // Re-initialize DataTables for newly injected table
-                initializeTables();
-
-                if (pushState) {
-                    history.pushState({}, "", url);
-                }
-            }, 200);
-        }
-
-        document.addEventListener("click", e => {
-            const link = e.target.closest("a[data-spa]");
-            if (!link) return;
-
-            e.preventDefault();
-            loadPage(link.href);
-        });
-
-        window.addEventListener("popstate", () => {
-            loadPage(location.pathname, false);
-        });
-
-</script>

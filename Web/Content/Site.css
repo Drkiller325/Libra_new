@@ -123,3 +123,9 @@ main {
     }
 
 
+hr {
+    border: none; /* remove default border */
+    border-top: 2px solid #ccc; /* your line style */
+    margin: 20px 0; /* spacing above and below */
+    opacity: 0.5;
+}

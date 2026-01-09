@@ -256,6 +256,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Scripts\Custom\dataTables_setup.js" />
+    <Content Include="Scripts\Custom\SPA_navigation.js" />
     <Content Include="Content\dataTables.bootstrap5.css" />
     <Content Include="Content\dataTables.bootstrap5.min.css" />
     <Content Include="Content\navBar.css" />
@@ -291,7 +293,6 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\Custom\datatables.setup.js" />
     <Content Include="Scripts\dataTables.bootstrap5.js" />
     <Content Include="Scripts\dataTables.bootstrap5.min.js" />
     <Content Include="Scripts\dataTables.js" />
@@ -323,11 +324,12 @@
     <Content Include="Views\Pos\Index.cshtml" />
     <Content Include="Views\Shared\_navBar.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\AddUser.cshtml" />
+    <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
+    <Folder Include="Content\Custom\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
