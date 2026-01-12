@@ -13,14 +13,16 @@ using System.Web.Mvc;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IMediator _mediator;
         private readonly IValidator<AddUserViewModel> _userValidator;
 
-        public AdminController(IMediator mediator)
+        public AdminController(IMediator mediator, IValidator<AddUserViewModel> userValidator)
         {
             _mediator = mediator;
+            _userValidator = userValidator;
         }
         // GET: Admin
         public async Task<ActionResult> Index(CancellationToken cancellationToken)
@@ -44,9 +46,9 @@ namespace Web.Controllers
 
             var roles = await _mediator.Send(new GetUserRoles() { }, cancellationToken);
 
-            ViewBag.UserRoles = new SelectList(roles, "Id", "Type");
+            ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
 
-
+            return View();
         }
 
         [HttpPost]
@@ -55,32 +57,43 @@ namespace Web.Controllers
         {
             var validationResult = _userValidator.Validate(model);
 
-            if(!validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
-                var erorrs = validationResult.Errors.GroupBy(x => x.PropertyName).ToDictionary(g => g.Key, g => g.First().ErrorMessage);
-                return Json(new { success = false, erorrs });
-            }
-
-            try
-            {
-                var addUser = await _mediator.Send(new AddUserCommand
+                foreach (var error in validationResult.Errors)
                 {
-                    Data = model
-                });
-
-                if(addUser)
-                {
-                    return Json(new { StatusCode = 201, message = "User was successfully created." });
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-                else
-                {
-                    return Json(new { StatusCode = 500, message = "A problem on the server occured. Try again" });
-                }
+
+                var roles = await _mediator.Send(new GetUserRoles() { });
+                ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+                return View(model);
             }
-            catch
+            else
             {
-                return Json(new { success = false, message = "A problem on the server occured. Try again!" });
+                try
+                {
+                    var addUser = await _mediator.Send(new AddUserCommand
+                    {
+                        Data = model
+                    });
+
+                    if (addUser)
+                    {
+                        //return Json(new { StatusCode = 201, message = "User was successfully created." });
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return Json(new { StatusCode = 500, message = "A problem on the server occured. Try again" });
+                    }
+                }
+                catch
+                {
+                    return Json(new { success = false, message = "A problem on the server occured. Try again!" });
+                }
+
             }
+            
         }
             
     }

@@ -9,6 +9,32 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.5/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="~/Content/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="~/Content/navBar.css" />
+
+    @*Toastr config*@
+
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "iconClasses": {
+                "error": "toast-error",
+                "info": "toast-info",
+                "success": "toast-success",
+                "warning": "toast-warning"
+            }
+        }
+    </script>
+    @*End toastr config*@
+
 </head>
 <body>
     <div class="page">
@@ -41,12 +67,12 @@
             </article>
         </main>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/datatables");
     <script src="~/Scripts/Custom/SPA_navigation.js"></script>
+    @Scripts.Render("~/bundles/toastr");
     @RenderSection("Scripts", required: false)
 </body>
 </html>

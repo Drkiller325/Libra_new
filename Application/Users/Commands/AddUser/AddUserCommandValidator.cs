@@ -4,6 +4,7 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -17,9 +18,7 @@ namespace Application.Users.Commands.AddUser
         public AddUserCommandValidator(IAppDbContext context)
         {
             _context = context;
-        }
-        public AddUserCommandValidator()
-        {
+
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("This Field is Required")
                 .NotNull().WithMessage("This Field is Required")
@@ -40,7 +39,7 @@ namespace Application.Users.Commands.AddUser
                 .NotEmpty().WithMessage("This Field is Required")
                 .NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("Password can have maximum 50 characters")
-                .Must(BeValidPassword).WithMessage("Password must contain at least 8 characters, a letter and a Digit")
+                .Must(BeValidPassword).WithMessage("Password must contain at least 8 characters, a letter and a special Character")
                 .WithName("Password");
 
             RuleFor(x => x.ConfirmPassword)
@@ -73,7 +72,7 @@ namespace Application.Users.Commands.AddUser
         {
             if (string.IsNullOrEmpty(name)) return false;
 
-            return Regex.IsMatch(name, @"^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$");
+            return Regex.IsMatch(name, @"^[a-zA-Z '.-]*[A-Za-z][^-]$");
         }
 
         public bool BeValidEmail(string email)
@@ -87,7 +86,7 @@ namespace Application.Users.Commands.AddUser
         {
             if(string.IsNullOrEmpty(password)) return false;
 
-            return Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
+            return Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&/])[A-Za-z\d@$!%*#?&/]{8,}$");
         }
 
         public bool BeUniqueEmail(string email)
