@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries
 {
-    public class GetUserRoles : IRequest<IEnumerable<RoleViewModel>>
+    public class GetUserRolesQuery : IRequest<IEnumerable<RoleViewModel>>
     {
     }
 
-    public class GetUserRolesHandler : IRequestHandler<GetUserRoles, IEnumerable<RoleViewModel>>
+    public class GetUserRolesHandler : IRequestHandler<GetUserRolesQuery, IEnumerable<RoleViewModel>>
     {
         private readonly IAppDbContext _context;
 
@@ -23,7 +23,7 @@ namespace Application.Users.Queries
         {
             _context = context;
         }
-        public async Task<IEnumerable<RoleViewModel>> Handle(GetUserRoles request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<RoleViewModel>> Handle(GetUserRolesQuery request, CancellationToken cancellationToken)
         {
             var roles = await _context.UserTypes.ToListAsync(cancellationToken) ;
 

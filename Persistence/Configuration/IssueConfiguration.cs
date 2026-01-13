@@ -42,6 +42,11 @@ namespace Persistence.Configuration
                 .HasForeignKey(x => x.SubTypeId)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(x => x.Problem)
+                .WithMany()
+                .HasForeignKey(x => x.ProblemId)
+                .WillCascadeOnDelete(false);
+
             HasRequired(x => x.Status)
                 .WithMany(x => x.Issues)
                 .HasForeignKey(x => x.StatusId)

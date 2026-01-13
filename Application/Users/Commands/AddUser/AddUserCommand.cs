@@ -38,7 +38,14 @@ namespace Application.Users.Commands.AddUser
 
             var Role = await _context.UserTypes.FirstOrDefaultAsync(x => x.Id == request.Data.UserTypeId);
 
-            var user = new User(model.Name, model.Email, model.IsEnabled, model.Login, model.Password, model.Telephone, Role);
+            var user = new User(
+                model.Name, 
+                model.Email, 
+                model.IsEnabled, 
+                model.Login, 
+                model.Password, 
+                model.Telephone, 
+                Role);
 
             _context.Users.AddOrUpdate(user);
 

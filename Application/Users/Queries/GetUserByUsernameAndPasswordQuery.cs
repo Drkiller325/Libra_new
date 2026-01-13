@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries
 {
-    public class GetUserByUsernameAndPassword : IRequest<UserByNameAndPasswordViewModel>
+    public class GetUserByUsernameAndPasswordQuery : IRequest<UserByNameAndPasswordViewModel>
     {
         public string Login { get; set; }
         public string Password { get; set; }
     }
 
-    public class GetUserByUsernameAndPasswordHandler : IRequestHandler<GetUserByUsernameAndPassword, UserByNameAndPasswordViewModel>
+    public class GetUserByUsernameAndPasswordHandler : IRequestHandler<GetUserByUsernameAndPasswordQuery, UserByNameAndPasswordViewModel>
     {
         private readonly IAppDbContext _context;
 
@@ -23,7 +23,7 @@ namespace Application.Users.Queries
         {
             _context = context;
         }
-        public async Task<UserByNameAndPasswordViewModel> Handle(GetUserByUsernameAndPassword request, CancellationToken cancellationToken)
+        public async Task<UserByNameAndPasswordViewModel> Handle(GetUserByUsernameAndPasswordQuery request, CancellationToken cancellationToken)
         {
             try
             {

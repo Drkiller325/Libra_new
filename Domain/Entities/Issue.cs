@@ -13,7 +13,6 @@ namespace Domain.Entities
         public string Memo { get; set; }
         public string Description { get; set; }
         public string Solution { get; set; }
-        public int ProblemId { get; set; } // what is this?
 
         public User CreatedBy { get; set; }
         public User LastModifiedBy { get; set; }
@@ -25,8 +24,10 @@ namespace Domain.Entities
 
         public int TypeId { get; set; }
         public int? SubTypeId { get; set; }
+        public int? ProblemId { get; set; }
         public IssueType Type { get; set; }
         public IssueType SubType { get; set; }
+        public IssueType Problem { get; set; }
 
         public int StatusId { get; set; }
         public IssueStatus Status { get; set; }

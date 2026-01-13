@@ -7,7 +7,7 @@
             this.datasets[name] = data;
         },
 
-        initialize(id,url) {
+        initialize() {
             const tables = document.querySelectorAll("table[data-dt='true']");
 
             tables.forEach(table => {

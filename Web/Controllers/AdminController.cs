@@ -25,11 +25,12 @@ namespace Web.Controllers
             _userValidator = userValidator;
         }
         // GET: Admin
+        [HttpGet]
         public async Task<ActionResult> Index(CancellationToken cancellationToken)
         {
             try
             {
-                var users = await _mediator.Send(new GetUsers() { }, cancellationToken);
+                var users = await _mediator.Send(new GetAllUsersQuery() { }, cancellationToken);
 
                 return View(users);
             }
@@ -41,10 +42,10 @@ namespace Web.Controllers
         }
 
 
-        public async Task<ActionResult> AddUser(CancellationToken cancellationToken)
+        public async Task<ActionResult> GetAddUser(CancellationToken cancellationToken)
         {
 
-            var roles = await _mediator.Send(new GetUserRoles() { }, cancellationToken);
+            var roles = await _mediator.Send(new GetUserRolesQuery() { }, cancellationToken);
 
             ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
 
@@ -64,7 +65,7 @@ namespace Web.Controllers
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
 
-                var roles = await _mediator.Send(new GetUserRoles() { });
+                var roles = await _mediator.Send(new GetUserRolesQuery() { });
                 ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
                 return View(model);
             }
@@ -94,6 +95,11 @@ namespace Web.Controllers
 
             }
             
+        }
+
+        public async Task<ActionResult> EditUser(int Id)
+        {
+            return View();
         }
             
     }

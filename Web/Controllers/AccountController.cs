@@ -57,7 +57,7 @@ namespace Web.Controllers
             else
             {
 
-                var user = await _mediator.Send(new GetUserByUsernameAndPassword
+                var user = await _mediator.Send(new GetUserByUsernameAndPasswordQuery
                 {
                     Login = model.Login,
                     Password = model.Password,

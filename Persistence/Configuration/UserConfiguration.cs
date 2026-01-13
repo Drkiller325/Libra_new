@@ -26,6 +26,8 @@ namespace Persistence.Configuration
 
             HasIndex(x => x.Email).IsUnique();
 
+            Property(x => x.Telephone).IsOptional();
+
             HasRequired(x => x.UserType)
                 .WithMany(x => x.users)
                 .HasForeignKey(x => x.UserTypeId)

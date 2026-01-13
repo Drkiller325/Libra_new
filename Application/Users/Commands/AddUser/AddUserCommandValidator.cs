@@ -28,9 +28,10 @@ namespace Application.Users.Commands.AddUser
                 .WithName("Name");
 
             RuleFor(x => x.Email)
-                .NotEmpty().WithMessage("This Field is Required")
-                .NotNull().WithMessage("This Field is Required")
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
+                //.NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("email can have maximum 50 characters")
+                //.EmailAddress
                 .Must(BeUniqueEmail).WithMessage("Email already exists")
                 .Must(BeValidEmail).WithMessage("Invalid Email")
                 .WithName("Email");
