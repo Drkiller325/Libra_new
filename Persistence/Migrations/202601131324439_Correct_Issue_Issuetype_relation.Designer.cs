@@ -13,7 +13,7 @@ namespace Persistence.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202601131234479_Correct_Issue_Issuetype_relation"; }
+            get { return "202601131324439_Correct_Issue_Issuetype_relation"; }
         }
         
         string IMigrationMetadata.Source

@@ -91,9 +91,9 @@
     <Compile Include="Migrations\202601061412444_InitialMigrate.Designer.cs">
       <DependentUpon>202601061412444_InitialMigrate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202601131234479_Correct_Issue_Issuetype_relation.cs" />
-    <Compile Include="Migrations\202601131234479_Correct_Issue_Issuetype_relation.Designer.cs">
-      <DependentUpon>202601131234479_Correct_Issue_Issuetype_relation.cs</DependentUpon>
+    <Compile Include="Migrations\202601131324439_Correct_Issue_Issuetype_relation.cs" />
+    <Compile Include="Migrations\202601131324439_Correct_Issue_Issuetype_relation.Designer.cs">
+      <DependentUpon>202601131324439_Correct_Issue_Issuetype_relation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,8 +119,8 @@
     <EmbeddedResource Include="Migrations\202601061412444_InitialMigrate.resx">
       <DependentUpon>202601061412444_InitialMigrate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202601131234479_Correct_Issue_Issuetype_relation.resx">
-      <DependentUpon>202601131234479_Correct_Issue_Issuetype_relation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202601131324439_Correct_Issue_Issuetype_relation.resx">
+      <DependentUpon>202601131324439_Correct_Issue_Issuetype_relation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

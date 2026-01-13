@@ -38,12 +38,12 @@ namespace Persistence.Configuration
                 .WillCascadeOnDelete(false);
 
             HasOptional(x => x.SubType)
-                .WithMany()
+                .WithMany(x => x.SubTypes)
                 .HasForeignKey(x => x.SubTypeId)
                 .WillCascadeOnDelete(false);
 
             HasOptional(x => x.Problem)
-                .WithMany()
+                .WithMany(x => x.Problems)
                 .HasForeignKey(x => x.ProblemId)
                 .WillCascadeOnDelete(false);
 
