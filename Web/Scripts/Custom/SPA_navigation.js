@@ -17,13 +17,17 @@
             content.innerHTML = newContent.innerHTML;
             content.classList.remove("loading");
 
-            SpaDataTables.initialize();
+
+            initDataTables();
+            initTableInteractions();
 
             if (pushState) {
                 history.pushState({}, "", url);
             }
         }, 200);
     }
+
+    window.loadPage = loadPage;
 
     document.addEventListener("click", e => {
         const link = e.target.closest("a[data-spa]");
@@ -33,10 +37,5 @@
         loadPage(link.href);
     });
 
-    window.addEventListener("popstate", () => {
-        loadPage(location.pathname, false);
-    });
-
-    window.SpaNavigation = { loadPage };
 
 })();

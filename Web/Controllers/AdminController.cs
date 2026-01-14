@@ -26,22 +26,28 @@ namespace Web.Controllers
         }
         // GET: Admin
         [HttpGet]
-        public async Task<ActionResult> Index(CancellationToken cancellationToken)
+        public ActionResult Index()
+        {
+            return View();
+            
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetUsers(CancellationToken cancellationToken)
         {
             try
             {
                 var users = await _mediator.Send(new GetAllUsersQuery() { }, cancellationToken);
 
-                return View(users);
+                return Json(users, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 throw new Exception("Cannot send request via mediator" + ex);
             }
-            
         }
 
-
+        [HttpGet]
         public async Task<ActionResult> GetAddUser(CancellationToken cancellationToken)
         {
 
@@ -97,8 +103,17 @@ namespace Web.Controllers
             
         }
 
-        public async Task<ActionResult> EditUser(int Id)
+        [HttpGet]
+        public ActionResult GetUserDetails(int Id)
         {
+            ViewBag.Id = Id;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetEditUser(int Id)
+        {
+            ViewBag.Id = Id;
             return View();
         }
             

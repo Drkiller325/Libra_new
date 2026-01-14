@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigrate : DbMigration
+    public partial class Initial_migrate : DbMigration
     {
         public override void Up()
         {
@@ -60,11 +60,11 @@
                         Memo = c.String(maxLength: 128),
                         Description = c.String(maxLength: 300),
                         Solution = c.String(),
-                        ProblemId = c.Int(nullable: false),
                         AssignedId = c.Int(nullable: false),
                         PosId = c.Int(nullable: false),
                         TypeId = c.Int(nullable: false),
                         SubTypeId = c.Int(),
+                        ProblemId = c.Int(),
                         StatusId = c.Int(nullable: false),
                         CreatedById = c.Int(nullable: false),
                         Created = c.DateTime(nullable: false),
@@ -76,6 +76,7 @@
                 .ForeignKey("dbo.Users", t => t.CreatedById)
                 .ForeignKey("dbo.Users", t => t.LastModifiedById)
                 .ForeignKey("dbo.Pos", t => t.PosId)
+                .ForeignKey("dbo.IssueTypes", t => t.ProblemId)
                 .ForeignKey("dbo.IssueStatus", t => t.StatusId)
                 .ForeignKey("dbo.IssueTypes", t => t.SubTypeId)
                 .ForeignKey("dbo.IssueTypes", t => t.TypeId)
@@ -83,6 +84,7 @@
                 .Index(t => t.PosId)
                 .Index(t => t.TypeId)
                 .Index(t => t.SubTypeId)
+                .Index(t => t.ProblemId)
                 .Index(t => t.StatusId)
                 .Index(t => t.CreatedById)
                 .Index(t => t.LastModifiedById);
@@ -133,15 +135,6 @@
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.IssueStatus",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Status = c.String(nullable: false, maxLength: 50),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.IssueTypes",
                 c => new
                     {
@@ -151,9 +144,16 @@
                         ParentIssueId = c.Int(),
                         InsertDate = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.IssueTypes", t => t.ParentIssueId)
-                .Index(t => t.ParentIssueId);
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.IssueStatus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Status = c.String(nullable: false, maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id);
             
         }
         
@@ -161,8 +161,8 @@
         {
             DropForeignKey("dbo.Issues", "TypeId", "dbo.IssueTypes");
             DropForeignKey("dbo.Issues", "SubTypeId", "dbo.IssueTypes");
-            DropForeignKey("dbo.IssueTypes", "ParentIssueId", "dbo.IssueTypes");
             DropForeignKey("dbo.Issues", "StatusId", "dbo.IssueStatus");
+            DropForeignKey("dbo.Issues", "ProblemId", "dbo.IssueTypes");
             DropForeignKey("dbo.Issues", "PosId", "dbo.Pos");
             DropForeignKey("dbo.Issues", "LastModifiedById", "dbo.Users");
             DropForeignKey("dbo.Issues", "CreatedById", "dbo.Users");
@@ -172,7 +172,6 @@
             DropForeignKey("dbo.Logs", "IssueId", "dbo.Issues");
             DropForeignKey("dbo.Pos", "ConnectionTypeId", "dbo.ConnectionTypes");
             DropForeignKey("dbo.Pos", "CityId", "dbo.Cities");
-            DropIndex("dbo.IssueTypes", new[] { "ParentIssueId" });
             DropIndex("dbo.Logs", new[] { "UserId" });
             DropIndex("dbo.Logs", new[] { "IssueId" });
             DropIndex("dbo.Users", new[] { "UserTypeId" });
@@ -181,14 +180,15 @@
             DropIndex("dbo.Issues", new[] { "LastModifiedById" });
             DropIndex("dbo.Issues", new[] { "CreatedById" });
             DropIndex("dbo.Issues", new[] { "StatusId" });
+            DropIndex("dbo.Issues", new[] { "ProblemId" });
             DropIndex("dbo.Issues", new[] { "SubTypeId" });
             DropIndex("dbo.Issues", new[] { "TypeId" });
             DropIndex("dbo.Issues", new[] { "PosId" });
             DropIndex("dbo.Issues", new[] { "AssignedId" });
             DropIndex("dbo.Pos", new[] { "ConnectionTypeId" });
             DropIndex("dbo.Pos", new[] { "CityId" });
-            DropTable("dbo.IssueTypes");
             DropTable("dbo.IssueStatus");
+            DropTable("dbo.IssueTypes");
             DropTable("dbo.Logs");
             DropTable("dbo.Users");
             DropTable("dbo.UserTypes");

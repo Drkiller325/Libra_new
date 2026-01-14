@@ -188,9 +188,8 @@
     <Compile Include="Interfaces\IDateTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\Commands\AddUser\AddUserCommand.cs" />
-    <Compile Include="Users\Commands\AddUser\AddUserCommandValidator.cs" />
-    <Compile Include="Users\Commands\LoginUser\LoginUserCommand.cs" />
-    <Compile Include="Users\Commands\LoginUser\LoginUserValidator.cs" />
+    <Compile Include="Users\ViewModels\AddUserCommandValidator.cs" />
+    <Compile Include="Users\ViewModels\LoginUserValidator.cs" />
     <Compile Include="Users\Queries\GetUserByIdQuery.cs" />
     <Compile Include="Users\Queries\GetUserByUsernameAndPasswordQuery.cs" />
     <Compile Include="Users\Queries\GetUserRolesQuery.cs" />

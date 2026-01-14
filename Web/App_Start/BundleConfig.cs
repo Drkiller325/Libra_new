@@ -11,7 +11,7 @@ namespace Web
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                 "~/Scripts/datatables.min.js",
                 "~/Scripts/datatables.bootstrap5.min.js",
-                "~/Scripts/Custom/dataTables_setup.js"));
+                "~/Scripts/Custom/TableList.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));

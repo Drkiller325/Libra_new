@@ -1,42 +1,48 @@
-﻿(function () {
+﻿function initDataTables() {
+    $('[data-table]').each(function () {
+        if ($.fn.DataTable.isDataTable(this)) return;
 
-    window.SpaDataTables = {
-        datasets: {},
+        const key = this.dataset.table;
+        const config = tableList[key]?.();
 
-        registerDataset(name, data) {
-            this.datasets[name] = data;
-        },
+        if (!config) return;
 
-        initialize(id,url) {
-            const tables = document.querySelectorAll("table[data-dt='true']");
+        $(this).DataTable(config);
+    });
+}
 
-            tables.forEach(table => {
-                if (table.classList.contains("dt-initialized")) return;
+window.initTableInteractions = function () {
 
-                const datasetName = table.dataset.dataset;
-                const data = SpaDataTables.datasets[datasetName] || [];
+    let selectedUser = null;
 
-                const columns = Array.from(
-                    table.querySelectorAll("thead th")
-                ).map(th => ({
-                    data: th.dataset.field || th.textContent.trim()
-                }));
+    const table = $('#usersTable').DataTable();
 
-                $(table).DataTable({
-                    data,
-                    columns,
-                    layout: {
-                        bottomEnd: {
-                            paging: {
-                                firstLast: false
-                            }
-                        }
-                    }
-                });
+    $('#usersTable tbody').off('click').on('click', 'tr', function () {
 
-                table.classList.add("dt-initialized");
-            });
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            selectedUser = null;
+            $('#editUserBtn').prop('disabled', true);
+            $('#UserDetailsBtn').prop('disabled', true);
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            selectedUser = table.row(this).data();
+            $('#editUserBtn').prop('disabled', false);
+            $('#userDetailsBtn').prop('disabled', false);
         }
-    };
 
-})();
+    });
+
+    $('#addUserBtn').off('click').on('click', function () {
+        loadPage('/admin/GetAddUser');
+    });
+
+    $('#editUserBtn').off('click').on('click', function () {
+        loadPage(`/admin/GetEditUser/${selectedUser.Id}`);
+    });
+
+    $('#userDetailsBtn').off('click').on('click', function () {
+        loadPage(`/admin/GetUserDetails/${selectedUser.Id}`);
+    });
+}; 
