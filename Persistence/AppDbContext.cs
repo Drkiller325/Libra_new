@@ -63,6 +63,11 @@ namespace Persistence
             return base.SaveChangesAsync(cancellationToken);
         }
 
+        public void Save()
+        {
+            this.SaveChanges();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

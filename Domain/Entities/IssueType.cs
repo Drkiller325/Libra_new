@@ -11,13 +11,12 @@ namespace Domain.Entities
     {
         public int IssueLevel { get; set; }
         public string Name { get; set; }
-
         public int? ParentIssueId { get; set; }
 
-        public IssueType ParentIssue { get; set; }
-        public ICollection<IssueType> SubTypes { get; set; } = new HashSet<IssueType>();
-
+        public ICollection<Issue> SubTypes { get; set; } = new HashSet<Issue>();
         public ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
+        public ICollection<Issue> Problems { get; set; } = new HashSet<Issue>();
+
         public DateTime InsertDate { get; set; }
     }
 }

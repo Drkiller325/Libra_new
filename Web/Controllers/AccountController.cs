@@ -57,7 +57,7 @@ namespace Web.Controllers
             else
             {
 
-                var user = await _mediator.Send(new GetUserByUsernameAndPassword
+                var user = await _mediator.Send(new GetUserByUsernameAndPasswordQuery
                 {
                     Login = model.Login,
                     Password = model.Password,
@@ -76,7 +76,7 @@ namespace Web.Controllers
                 {
                     ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
-                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
                     claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                         "OWIN Provider", ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserType, ClaimValueTypes.String));
@@ -90,6 +90,12 @@ namespace Web.Controllers
                 }
             }
             return View(model);
+        }
+
+        public ActionResult Logout()
+        {
+            authenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries
 {
-    public class GetUserByUsernameAndPassword : IRequest<UserByUsernameAndPasswordViewModel>
+    public class GetUserByUsernameAndPasswordQuery : IRequest<UserByNameAndPasswordViewModel>
     {
         public string Login { get; set; }
         public string Password { get; set; }
     }
 
-    public class GetUserByUsernameAndPasswordHandler : IRequestHandler<GetUserByUsernameAndPassword, UserByUsernameAndPasswordViewModel>
+    public class GetUserByUsernameAndPasswordHandler : IRequestHandler<GetUserByUsernameAndPasswordQuery, UserByNameAndPasswordViewModel>
     {
         private readonly IAppDbContext _context;
 
@@ -23,7 +23,7 @@ namespace Application.Users.Queries
         {
             _context = context;
         }
-        public async Task<UserByUsernameAndPasswordViewModel> Handle(GetUserByUsernameAndPassword request, CancellationToken cancellationToken)
+        public async Task<UserByNameAndPasswordViewModel> Handle(GetUserByUsernameAndPasswordQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -32,11 +32,12 @@ namespace Application.Users.Queries
 
                 if (user == null) return null;
 
-                if (!user.checkPassword(request.Password)) return null;
+                if (!checkPassword(request.Password, user.PasswordHash)) return null;
 
-                var userByUsernameAndPasswordDto = new UserByUsernameAndPasswordViewModel
+                var userByUsernameAndPasswordDto = new UserByNameAndPasswordViewModel
                 {
                     Id = user.Id,
+                    Name = user.Name,
                     Login = user.Login,
                     Password = user.PasswordHash,
                     Email = user.Email,
@@ -51,5 +52,12 @@ namespace Application.Users.Queries
                 throw new Exception("Error in User query" + e.Message);
             }
         }
+
+        private bool checkPassword(string password, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hash);
+        }
     }
+
+
 }

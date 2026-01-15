@@ -1,6 +1,6 @@
 ﻿<div class="sidebar-top navbar ps-3 navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="Home" data-spa>BlazorApp1</a>
+        <a class="navbar-brand" href="/Home" data-spa>BlazorApp1</a>
     </div>
 </div>
 
@@ -9,25 +9,37 @@
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="nav flex-column">
         <div class="nav-item px-3">
-            <a class="nav-link" href="Home" Match="NavLinkMatch.All" data-spa>
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            <a class="nav-link" href="/Home" Match="NavLinkMatch.All" data-spa>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4M3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.39.39 0 0 0-.029-.518z" />
+                    <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A8 8 0 0 1 0 10m8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3" />
+                </svg>
+                Home
             </a>
         </div>
 
         <div class="nav-item px-3 drop">
             <a class="nav-link">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Positions
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                    <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                </svg>
+                Positions
             </a>
         </div>
         <div class="dropdown-container nav-link px-3">
-            <a class="nav-link" href="Pos" data-spa>Pos</a>
+            <a class="nav-link" href="/Pos" data-spa>Pos</a>
             <a class="nav-link" href="#" data-spa>Link 2</a>
             <a class="nav-link" href="#" data-spa>Link 3</a>
         </div>
 
         <div class="nav-item px-3 drop">
             <a class="nav-link">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench-adjustable" viewBox="0 0 16 16">
+                    <path d="M16 4.5a4.5 4.5 0 0 1-1.703 3.526L13 5l2.959-1.11q.04.3.041.61" />
+                    <path d="M11.5 9c.653 0 1.273-.139 1.833-.39L12 5.5 11 3l3.826-1.53A4.5 4.5 0 0 0 7.29 6.092l-6.116 5.096a2.583 2.583 0 1 0 3.638 3.638L9.908 8.71A4.5 4.5 0 0 0 11.5 9m-1.292-4.361-.596.893.809-.27a.25.25 0 0 1 .287.377l-.596.893.809-.27.158.475-1.5.5a.25.25 0 0 1-.287-.376l.596-.893-.809.27a.25.25 0 0 1-.287-.377l.596-.893-.809.27-.158-.475 1.5-.5a.25.25 0 0 1 .287.376M3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                </svg>
+                Weather
             </a>
         </div>
         <div class="dropdown-container nav-link px-3">
@@ -36,14 +48,21 @@
             <a class="nav-link" href="#" data-spa>Link 3</a>
         </div>
 
-        <div class="nav-item px-3 drop">
-            <a class="nav-link">Dropdown</a>
-        </div>
-        <div class="dropdown-container nav-link px-3">
-            <a class="nav-link" href="#">Link 1</a>
-            <a class="nav-link" href="#">Link 2</a>
-            <a class="nav-link" href="#">Link 3</a>
-        </div>
+        @if (User.IsInRole("admin"))
+        {
+            <div class="nav-item px-3 drop">
+                <a class="nav-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                    </svg>
+                    Users
+                </a>
+            </div>
+            <div class="dropdown-container nav-link px-3">
+                <a class="nav-link" href="/Admin/GetAddUser" data-spa>Add User</a>
+                <a class="nav-link" href="/Admin" data-spa>Browse Users</a>
+            </div>
+        }
     </nav>
 </div>
 
