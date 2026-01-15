@@ -32,7 +32,7 @@ namespace Application.Users.Queries
 
                 if (user == null) return null;
 
-                if (!user.checkPassword(request.Password)) return null;
+                if (!checkPassword(request.Password, user.PasswordHash)) return null;
 
                 var userByUsernameAndPasswordDto = new UserByNameAndPasswordViewModel
                 {
@@ -52,5 +52,12 @@ namespace Application.Users.Queries
                 throw new Exception("Error in User query" + e.Message);
             }
         }
+
+        private bool checkPassword(string password, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hash);
+        }
     }
+
+
 }

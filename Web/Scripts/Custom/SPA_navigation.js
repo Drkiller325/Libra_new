@@ -21,6 +21,7 @@
             initDataTables();
             initTableInteractions();
 
+
             if (pushState) {
                 history.pushState({}, "", url);
             }
@@ -35,6 +36,23 @@
 
         e.preventDefault();
         loadPage(link.href);
+    });
+
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest("#btnCancel");
+        if (!btn) return;
+
+        e.preventDefault();
+
+        if (history.length > 1) {
+            history.back();
+        } else {
+            loadPage("/Home/Index", false);
+        }
+    });
+
+    window.addEventListener("popstate", (event) => {
+        loadPage(location.pathname, false); // false = don't push state again
     });
 
 

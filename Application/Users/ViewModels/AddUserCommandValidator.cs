@@ -20,8 +20,7 @@ namespace Application.Users.Commands.AddUser
             _context = context;
 
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("This Field is Required")
-                .NotNull().WithMessage("This Field is Required")
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
                 .MinimumLength(5).WithMessage("Name Should at least be 5 characters Long")
                 .MaximumLength(50).WithMessage("Name is too Long")
                 .Must(BeValidName).WithMessage("Name can Only contain letters")
@@ -29,16 +28,13 @@ namespace Application.Users.Commands.AddUser
 
             RuleFor(x => x.Email)
                 .NotEmpty().NotNull().WithMessage("This Field is Required")
-                //.NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("email can have maximum 50 characters")
-                //.EmailAddress
+                .EmailAddress().WithMessage("Invalid Email")
                 .Must(BeUniqueEmail).WithMessage("Email already exists")
-                .Must(BeValidEmail).WithMessage("Invalid Email")
                 .WithName("Email");
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("This Field is Required")
-                .NotNull().WithMessage("This Field is Required")
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("Password can have maximum 50 characters")
                 .Must(BeValidPassword).WithMessage("Password must contain at least 8 characters, a letter and a special Character")
                 .WithName("Password");
@@ -47,25 +43,20 @@ namespace Application.Users.Commands.AddUser
                 .Equal(x => x.Password).WithMessage("Passwords did not match");
 
             RuleFor(x => x.Telephone)
-                .NotEmpty().WithMessage("This Field is Required")
-                .NotNull().WithMessage("This Field is Required")
-                .MaximumLength(10).WithMessage("Phone number must be 8 characters")
-                .Length(10)
-                .Must(BeDigit)
+                .Matches(@"^\d+$")
+                .When(x => !string.IsNullOrEmpty(x.Telephone))
+                .WithMessage("Phone number must be 10 characters")
                 .WithName("Telephone");
 
             RuleFor(x => x.Login)
-                .NotEmpty().WithMessage("This Field is Required")
-                .NotNull().WithMessage("This Field is Required")
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("Username can have maximum 50 characters")
                 .MinimumLength(5).WithMessage("Username must have at least 5 characters")
                 .Must(BeUniqueLogin).WithMessage("Username Already exists")
                 .WithName("Login");
 
             RuleFor(x => x.UserTypeId)
-                .NotEmpty().WithMessage("This Field is Required")
-                .NotNull().WithMessage("This Field is Required")
-                .InclusiveBetween(1, 3).WithMessage("Invalid UserType")
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
                 .WithName("UserType");
         }
 
@@ -76,12 +67,6 @@ namespace Application.Users.Commands.AddUser
             return Regex.IsMatch(name, @"^[a-zA-Z '.-]*[A-Za-z][^-]$");
         }
 
-        public bool BeValidEmail(string email)
-        {
-            if (string.IsNullOrEmpty(email)) return false;
-
-            return Regex.IsMatch(email, @"^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$");
-        }
 
         public bool BeValidPassword(string password)
         {
@@ -104,11 +89,5 @@ namespace Application.Users.Commands.AddUser
             return !_context.Users.Any(x => x.Login == login);
         }
 
-        public bool BeDigit(string number)
-        {
-            if (string.IsNullOrEmpty(number)) return false;
-
-            return Regex.IsMatch(number, @"^\d+$");
-        }
     }
 }

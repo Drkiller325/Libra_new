@@ -45,4 +45,6 @@ window.initTableInteractions = function () {
     $('#userDetailsBtn').off('click').on('click', function () {
         loadPage(`/admin/GetUserDetails/${selectedUser.Id}`);
     });
+
+    
 }; 

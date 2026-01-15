@@ -3,6 +3,7 @@ using Application.Users.ViewModels;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -25,7 +26,7 @@ namespace Application.Users.Queries
         }
         public async Task<EditUserViewModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var user = _context.Users.Where(x => x.Id == request.Id).FirstOrDefault();
+            var user = await _context.Users.Where(x => x.Id == request.Id).FirstOrDefaultAsync();
 
             if (user == null) throw new Exception("User not found");
 
@@ -33,9 +34,12 @@ namespace Application.Users.Queries
             {
                 Id = user.Id,
                 Login = user.Login,
+                OldPassword = user.PasswordHash,
                 Name = user.Name,
                 Email = user.Email,
                 Telephone = user.Telephone,
+                UserTypeId = user.UserTypeId,
+                IsEnabled = user.IsEnabled
 
             };
 

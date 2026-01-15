@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Users.Commands.AddUser
+namespace Application.Users.Commands
 {
     public class AddUserCommand : IRequest<bool>
     {
@@ -38,14 +38,16 @@ namespace Application.Users.Commands.AddUser
 
             var Role = await _context.UserTypes.FirstOrDefaultAsync(x => x.Id == request.Data.UserTypeId);
 
-            var user = new User(
-                model.Name, 
-                model.Email, 
-                model.IsEnabled, 
-                model.Login, 
-                model.Password, 
-                model.Telephone, 
-                Role);
+            var user = new User
+            {
+                Name = model.Name,
+                Email = model.Email,
+                IsEnabled = true,
+                Login = model.Login,
+                PasswordHash = setPassword(model.Password),
+                Telephone = model.Telephone,
+                UserType = Role
+            };
 
             _context.Users.AddOrUpdate(user);
 
@@ -53,6 +55,14 @@ namespace Application.Users.Commands.AddUser
 
             return false;
         }
+
+
+        private string setPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        
 
     }
 }

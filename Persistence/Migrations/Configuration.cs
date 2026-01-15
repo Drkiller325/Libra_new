@@ -29,12 +29,33 @@
         {
             var users = new List<User>()
             {
-                new User("ahmed", "admin@test.com", true, "admin", "admin", "123", new UserType(){Type = "admin"}),
-                new User("guest", "user@test.com", true, "user", "user", "123", new UserType(){Type = "user"})
+                new User {
+                    Name = "ahmed",
+                    Email = "admin@test.com",
+                    IsEnabled = true,
+                    Login = "admin",
+                    PasswordHash = setPassword("admin"),
+                    Telephone = "123",
+                    UserType =  new UserType(){Type = "admin"} 
+                },
+                new User {
+                    Name = "guest",
+                    Email = "user@test.com",
+                    IsEnabled = true,
+                    Login = "user",
+                    PasswordHash = setPassword("user"),
+                    Telephone = "123",
+                    UserType =  new UserType(){Type = "user"} 
+                }
             };
 
             users.ForEach(user => context.Users.Add(user));
             context.SaveChanges();
+        }
+
+        private string setPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
     }
 }

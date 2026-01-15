@@ -1,4 +1,4 @@
-﻿using Application.Users.Commands.AddUser;
+﻿using Application.Users.Commands;
 using Application.Users.Queries;
 using Application.Users.ViewModels;
 using FluentValidation;
@@ -18,11 +18,13 @@ namespace Web.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IValidator<AddUserViewModel> _userValidator;
+        private readonly IValidator<EditUserViewModel> _editUserValidator;
 
-        public AdminController(IMediator mediator, IValidator<AddUserViewModel> userValidator)
+        public AdminController(IMediator mediator, IValidator<AddUserViewModel> userValidator, IValidator<EditUserViewModel> editUserValidator)
         {
             _mediator = mediator;
             _userValidator = userValidator;
+            _editUserValidator = editUserValidator;
         }
         // GET: Admin
         [HttpGet]
@@ -73,7 +75,7 @@ namespace Web.Controllers
 
                 var roles = await _mediator.Send(new GetUserRolesQuery() { });
                 ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
-                return View(model);
+                return View("GetAddUser",model);
             }
             else
             {
@@ -104,17 +106,68 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetUserDetails(int Id)
+        public async Task<ActionResult> GetUserDetails(int Id)
         {
-            ViewBag.Id = Id;
-            return View();
+            var user = await _mediator.Send(new GetUserByIdQuery() { Id = Id });
+            var roles = await _mediator.Send(new GetUserRolesQuery() { });
+            ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+
+            if (user == null) return View("Error");
+            else
+                return View(user);
         }
 
         [HttpGet]
-        public ActionResult GetEditUser(int Id)
+        public async Task<ActionResult> GetEditUser(int Id)
         {
-            ViewBag.Id = Id;
-            return View();
+            var user = await _mediator.Send(new GetUserByIdQuery() { Id = Id });
+            var roles = await _mediator.Send(new GetUserRolesQuery() { });
+            ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+            if (user == null) return View("Error");
+            else
+                return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditUser(EditUserViewModel model)
+        {
+            var validationResult = _editUserValidator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                var roles = await _mediator.Send(new GetUserRolesQuery() { });
+                ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+                return View(model);
+            }
+            else
+            {
+                try
+                {
+                    var editUser = await _mediator.Send(new EditUserCommand()
+                    {
+                        Data = model
+                    });
+
+                    if (editUser) return RedirectToAction("Index");
+                    else
+                    {
+                        ViewBag.Erorr = "An error occured in the server";
+                        return RedirectToAction($"GetEditUser/{model.Id}");
+                    }
+
+                }
+                catch(Exception e)
+                {
+                    ViewBag.Error = e.Message;
+                    return RedirectToAction($"GetEditUser/{model.Id}");
+                }
+            }
         }
             
     }
