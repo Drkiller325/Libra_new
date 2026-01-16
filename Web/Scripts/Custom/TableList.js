@@ -31,4 +31,36 @@
             }
         }
     }),
+    PosTable: () => ({
+        ajax: {
+            url: '/Pos/GetPos',
+            type: 'GET',
+            dataSrc: ''
+        },
+        columns: [
+            { visible: false, data: 'Id' },
+            { data: 'Name', title: 'Pos Name' },
+            { data: 'Telephone', title: 'Telephone' },
+            { data: 'Address', title: 'Address' },
+            { data: 'City', title: 'City' },
+            { data: 'IssueCount', title: 'Status' }
+        ],
+        language: {
+            search: "Filter records:", // Custom search placeholder
+            lengthMenu: "Show _MENU_ entries",
+            info: "Showing _START_ to _END_ of _TOTAL_ Positions",
+            paginate: {
+                firstLast: false,
+                previous: "Prev",
+                next: "Next"
+            }
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        }
+    }),
 };
