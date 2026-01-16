@@ -16,7 +16,7 @@ namespace Domain.Entities
 
         public User CreatedBy { get; set; }
         public User LastModifiedBy { get; set; }
-        public int AssignedId { get; set; }
+        public int? AssignedId { get; set; }
         public UserType Assigned { get; set; }
 
         public int PosId { get; set; }

@@ -94,6 +94,10 @@
     <Compile Include="Migrations\202601131412183_initialMigrate.Designer.cs">
       <DependentUpon>202601131412183_initialMigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202601161242585_Add_seed_data.cs" />
+    <Compile Include="Migrations\202601161242585_Add_seed_data.Designer.cs">
+      <DependentUpon>202601161242585_Add_seed_data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -117,6 +121,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202601131412183_initialMigrate.resx">
       <DependentUpon>202601131412183_initialMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202601161242585_Add_seed_data.resx">
+      <DependentUpon>202601161242585_Add_seed_data.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
