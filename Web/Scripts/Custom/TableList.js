@@ -33,7 +33,7 @@
     }),
     PosTable: () => ({
         ajax: {
-            url: '/Pos/GetPos',
+            url: '/Pos/GetPoses',
             type: 'GET',
             dataSrc: ''
         },

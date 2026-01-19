@@ -29,7 +29,7 @@ namespace Libra.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetPos(CancellationToken cancellationToken)
+        public async Task<ActionResult> GetPoses(CancellationToken cancellationToken)
         {
 
             try
@@ -44,5 +44,7 @@ namespace Libra.Controllers
             }
             
         }
+
+        
     }
 }

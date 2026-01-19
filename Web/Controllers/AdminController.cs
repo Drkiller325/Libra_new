@@ -143,7 +143,7 @@ namespace Web.Controllers
 
                 var roles = await _mediator.Send(new GetUserRolesQuery() { });
                 ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
-                return View(model);
+                return View("GetEditUser", model);
             }
             else
             {

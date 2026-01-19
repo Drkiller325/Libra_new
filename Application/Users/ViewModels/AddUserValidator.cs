@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.AddUser
 {
-    public class AddUserCommandValidator : AbstractValidator<AddUserViewModel>
+    public class AddUserValidator : AbstractValidator<AddUserViewModel>
     {
         private readonly IAppDbContext _context;
 
-        public AddUserCommandValidator(IAppDbContext context)
+        public AddUserValidator(IAppDbContext context)
         {
             _context = context;
 

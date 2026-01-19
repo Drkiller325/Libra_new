@@ -1,15 +1,6 @@
 ﻿@using Application.Users.ViewModels
 @model AddUserViewModel
 
-<script>
-    $(document).ready(function () {
-        $('input[type=text], input[type=password], input[type=email], select').on('input', function () {
-            var fieldName = $(this).attr('name');
-            $('span[data-valmsg-for="' + fieldName + '"]').text('');
-            $(this).removeClass('is-invalid');
-        });
-    });
-</script>
 
 <div class="modal-content">
     <div class="modal-header">

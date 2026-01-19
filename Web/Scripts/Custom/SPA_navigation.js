@@ -19,7 +19,7 @@
 
 
             initDataTables();
-            initTableInteractions();
+            initTableInteractions("usersTable", "Admin", "User");
 
 
             if (pushState) {
@@ -29,6 +29,14 @@
     }
 
     window.loadPage = loadPage;
+
+    $(document).ready(function () {
+        $('input[type=text], input[type=password], input[type=email], select').on('input', function () {
+            var fieldName = $(this).attr('name');
+            $('span[data-valmsg-for="' + fieldName + '"]').text('');
+            $(this).removeClass('is-invalid');
+        });
+    });
 
     document.addEventListener("click", e => {
         const link = e.target.closest("a[data-spa]");

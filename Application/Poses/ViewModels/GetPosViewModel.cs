@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Poses.ViewModels
 {
-    public class PosViewModel
+    public class GetPosViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

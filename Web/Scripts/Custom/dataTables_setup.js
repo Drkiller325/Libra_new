@@ -11,39 +11,39 @@
     });
 }
 
-window.initTableInteractions = function () {
+function initTableInteractions (tableId, controller, entity) {
 
     let selectedUser = null;
 
-    const table = $('#usersTable').DataTable();
+    const table = $(`#${tableId}`).DataTable();
 
-    $('#usersTable tbody').off('click').on('click', 'tr', function () {
+    $(`#${tableId} tbody`).off('click').on('click', 'tr', function () {
 
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
             selectedUser = null;
-            $('#editUserBtn').prop('disabled', true);
-            $('#UserDetailsBtn').prop('disabled', true);
+            $(`#edit${entity}Btn`).prop('disabled', !selectedUser);
+            $(`#${entity}DetailsBtn`).prop('disabled', !selectedUser);
         } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
             selectedUser = table.row(this).data();
-            $('#editUserBtn').prop('disabled', false);
-            $('#userDetailsBtn').prop('disabled', false);
+            $(`#edit${entity}Btn`).prop('disabled', !selectedUser);
+            $(`#${entity}DetailsBtn`).prop('disabled', !selectedUser);
         }
 
     });
 
-    $('#addUserBtn').off('click').on('click', function () {
-        loadPage('/admin/GetAddUser');
+    $(`#add${entity}Btn`).off('click').on('click', function () {
+        loadPage(`/${controller}/GetAdd${entity}`);
     });
 
-    $('#editUserBtn').off('click').on('click', function () {
-        loadPage(`/admin/GetEditUser/${selectedUser.Id}`);
+    $(`#edit${entity}Btn`).off('click').on('click', function () {
+        loadPage(`/${controller}/GetEdit${entity}/${selectedUser.Id}`);
     });
 
-    $('#userDetailsBtn').off('click').on('click', function () {
-        loadPage(`/admin/GetUserDetails/${selectedUser.Id}`);
+    $(`#${entity}DetailsBtn`).off('click').on('click', function () {
+        loadPage(`/${controller}/Get${entity}Details/${selectedUser.Id}`);
     });
 
     
