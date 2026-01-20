@@ -1,5 +1,6 @@
 ﻿using Application.Users.Queries;
 using Autofac;
+using Autofac.Integration.SignalR;
 using FluentValidation;
 using MediatR;
 using System;
@@ -27,6 +28,8 @@ namespace Application.Extentions
             builder.RegisterAssemblyTypes(typeof(GetUserByUsernameAndPasswordHandler).Assembly)
                    .AsClosedTypesOf(typeof(IRequestHandler<,>))
                    .InstancePerLifetimeScope();
+
+            builder.RegisterHubs(Assembly.GetExecutingAssembly());
         }
     }
 }

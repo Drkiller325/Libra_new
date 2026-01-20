@@ -18,10 +18,7 @@ namespace Persistence.Configuration
 
             Property(x => x.Name).IsRequired().HasMaxLength(50);
 
-            HasOptional(x => x.ParentIssue)
-                .WithMany(x => x.SubTypes)
-                .HasForeignKey(x => x.ParentIssueId)
-                .WillCascadeOnDelete(false);
+            Property(x => x.ParentIssueId).IsOptional();
         }
     }
 }

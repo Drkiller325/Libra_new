@@ -27,13 +27,12 @@ namespace Web.App_Start
                 return t => componentContext.Resolve(t);
             });
 
+            builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
             builder.Register(a => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
 
-
-            builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             InfrastructureDependencyInjection.Register(builder);
             ApplicationDependencyInjection.RegisterApplication(builder);

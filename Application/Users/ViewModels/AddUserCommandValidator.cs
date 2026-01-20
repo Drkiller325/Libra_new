@@ -1,0 +1,93 @@
+﻿using Application.Interfaces;
+using Application.Users.ViewModels;
+using FluentValidation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Application.Users.Commands.AddUser
+{
+    public class AddUserCommandValidator : AbstractValidator<AddUserViewModel>
+    {
+        private readonly IAppDbContext _context;
+
+        public AddUserCommandValidator(IAppDbContext context)
+        {
+            _context = context;
+
+            RuleFor(x => x.Name)
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
+                .MinimumLength(5).WithMessage("Name Should at least be 5 characters Long")
+                .MaximumLength(50).WithMessage("Name is too Long")
+                .Must(BeValidName).WithMessage("Name can Only contain letters")
+                .WithName("Name");
+
+            RuleFor(x => x.Email)
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
+                .MaximumLength(50).WithMessage("email can have maximum 50 characters")
+                .EmailAddress().WithMessage("Invalid Email")
+                .Must(BeUniqueEmail).WithMessage("Email already exists")
+                .WithName("Email");
+
+            RuleFor(x => x.Password)
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
+                .MaximumLength(50).WithMessage("Password can have maximum 50 characters")
+                .Must(BeValidPassword).WithMessage("Password must contain at least 8 characters, a letter and a special Character")
+                .WithName("Password");
+
+            RuleFor(x => x.ConfirmPassword)
+                .Equal(x => x.Password).WithMessage("Passwords did not match");
+
+            RuleFor(x => x.Telephone)
+                .Matches(@"^\d+$")
+                .When(x => !string.IsNullOrEmpty(x.Telephone))
+                .WithMessage("Phone number must be 10 characters")
+                .WithName("Telephone");
+
+            RuleFor(x => x.Login)
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
+                .MaximumLength(50).WithMessage("Username can have maximum 50 characters")
+                .MinimumLength(5).WithMessage("Username must have at least 5 characters")
+                .Must(BeUniqueLogin).WithMessage("Username Already exists")
+                .WithName("Login");
+
+            RuleFor(x => x.UserTypeId)
+                .NotEmpty().NotNull().WithMessage("This Field is Required")
+                .WithName("UserType");
+        }
+
+        public bool BeValidName(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return false;
+
+            return Regex.IsMatch(name, @"^[a-zA-Z '.-]*[A-Za-z][^-]$");
+        }
+
+
+        public bool BeValidPassword(string password)
+        {
+            if(string.IsNullOrEmpty(password)) return false;
+
+            return Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&/])[A-Za-z\d@$!%*#?&/]{8,}$");
+        }
+
+        public bool BeUniqueEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email)) return false;
+
+            return !_context.Users.Any(x => x.Email == email);
+        }
+
+        public bool BeUniqueLogin(string login)
+        {
+            if (string.IsNullOrEmpty(login)) return false;
+
+            return !_context.Users.Any(x => x.Login == login);
+        }
+
+    }
+}

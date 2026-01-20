@@ -1,0 +1,23 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-lg-start fw-bold">
+    <h2 class="display-4">Users manager</h2>
+    <hr />
+</div>
+
+<div class="table-actions">
+    <button id="addUserBtn">Add User</button>
+    <button id="editUserBtn" disabled>Edit User</button>
+    <button id="userDetailsBtn" disabled>Details</button>
+</div>
+
+
+<table id="usersTable"
+       class="display stripe cell-border"
+       style="width:100%" data-table="usersTable"></table>
+
+

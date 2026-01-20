@@ -20,6 +20,8 @@ namespace Persistence.Configuration
 
             Property(x => x.Description).HasMaxLength(300).IsOptional();
 
+            Property(x => x.Solution).HasMaxLength(300).IsOptional();
+
             Property(x => x.LastModified).IsOptional();
 
             HasRequired(x => x.CreatedBy)
@@ -38,8 +40,13 @@ namespace Persistence.Configuration
                 .WillCascadeOnDelete(false);
 
             HasOptional(x => x.SubType)
-                .WithMany()
+                .WithMany(x => x.SubTypes)
                 .HasForeignKey(x => x.SubTypeId)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(x => x.Problem)
+                .WithMany(x => x.Problems)
+                .HasForeignKey(x => x.ProblemId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(x => x.Status)
@@ -47,7 +54,7 @@ namespace Persistence.Configuration
                 .HasForeignKey(x => x.StatusId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(x => x.Assigned)
+            HasOptional(x => x.Assigned)
                 .WithMany(x => x.Issues)
                 .HasForeignKey(x => x.AssignedId)
                 .WillCascadeOnDelete(false);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
@@ -19,5 +20,9 @@ namespace Application.Interfaces
         DbSet<Pos> Pos { get; set; }
         DbSet<City> Cities { get; set; }
         DbSet<ConnectionType> ConnectionTypes { get; set; }
+
+        void Save();
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
