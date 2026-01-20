@@ -22,6 +22,6 @@ namespace Application.Poses.ViewModels
         public TimeSpan MorningClosing { get; set; }
         public TimeSpan AfternoonOpening { get; set; }
         public TimeSpan AfternoonClosing { get; set; }
-        public List<int> ClosingDays { get; set; }
+        public List<DayViewModel> ClosingDays { get; set; }
     }
 }

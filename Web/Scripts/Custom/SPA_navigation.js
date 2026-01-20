@@ -20,6 +20,7 @@
 
             initDataTables();
             initTableInteractions("usersTable", "Admin", "User");
+            initTableInteractions("PosesTable", "Pos", "Pos");
 
 
             if (pushState) {
