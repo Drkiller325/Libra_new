@@ -96,9 +96,12 @@ namespace Web.Controllers
                         return Json(new { StatusCode = 500, message = "A problem on the server occured. Try again" });
                     }
                 }
-                catch
+                catch(Exception e)
                 {
-                    return Json(new { success = false, message = "A problem on the server occured. Try again!" });
+                    ModelState.AddModelError("", e.Message);
+                    var roles = await _mediator.Send(new GetUserRolesQuery() { });
+                    ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+                    return View("GetAddUser", model);
                 }
 
             }

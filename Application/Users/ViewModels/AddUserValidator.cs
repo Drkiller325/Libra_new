@@ -13,11 +13,9 @@ namespace Application.Users.Commands.AddUser
 {
     public class AddUserValidator : AbstractValidator<AddUserViewModel>
     {
-        private readonly IAppDbContext _context;
 
-        public AddUserValidator(IAppDbContext context)
+        public AddUserValidator()
         {
-            _context = context;
 
             RuleFor(x => x.Name)
                 .NotEmpty().NotNull().WithMessage("This Field is Required")
@@ -30,7 +28,6 @@ namespace Application.Users.Commands.AddUser
                 .NotEmpty().NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("email can have maximum 50 characters")
                 .EmailAddress().WithMessage("Invalid Email")
-                .Must(BeUniqueEmail).WithMessage("Email already exists")
                 .WithName("Email");
 
             RuleFor(x => x.Password)
@@ -52,7 +49,6 @@ namespace Application.Users.Commands.AddUser
                 .NotEmpty().NotNull().WithMessage("This Field is Required")
                 .MaximumLength(50).WithMessage("Username can have maximum 50 characters")
                 .MinimumLength(5).WithMessage("Username must have at least 5 characters")
-                .Must(BeUniqueLogin).WithMessage("Username Already exists")
                 .WithName("Login");
 
             RuleFor(x => x.UserTypeId)
@@ -75,19 +71,6 @@ namespace Application.Users.Commands.AddUser
             return Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&/])[A-Za-z\d@$!%*#?&/]{8,}$");
         }
 
-        public bool BeUniqueEmail(string email)
-        {
-            if (string.IsNullOrEmpty(email)) return false;
-
-            return !_context.Users.Any(x => x.Email == email);
-        }
-
-        public bool BeUniqueLogin(string login)
-        {
-            if (string.IsNullOrEmpty(login)) return false;
-
-            return !_context.Users.Any(x => x.Login == login);
-        }
 
     }
 }

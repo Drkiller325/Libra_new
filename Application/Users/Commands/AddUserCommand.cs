@@ -33,8 +33,9 @@ namespace Application.Users.Commands
             if (model == null) return false;
 
             bool ifExists = _context.Users.Any(x => x.Login == model.Login);
+            bool ifExists2 = _context.Users.Any(x => x.Email == model.Email);
 
-            if(ifExists) throw new Exception("User Already Exists");
+            if(ifExists || ifExists2) throw new Exception("User Or Email Already Exists");
 
             var Role = await _context.UserTypes.FirstOrDefaultAsync(x => x.Id == request.Data.UserTypeId);
 

@@ -15,8 +15,7 @@ namespace Application.Poses.ViewModels
             RuleFor(x => x.Name)
                 .NotEmpty().NotNull().WithMessage("This field is Required")
                 .MinimumLength(5).WithMessage("Name must be at least 5 charachters")
-                .MaximumLength(20).WithMessage("Name can't exceed 20 characters")
-                .Must(BeValidName).WithMessage("Name can only contain letters");
+                .MaximumLength(20).WithMessage("Name can't exceed 20 characters");
 
             RuleFor(x => x.Telephone)
                 .NotNull().NotEmpty().WithMessage("This field is Required")
@@ -33,7 +32,7 @@ namespace Application.Poses.ViewModels
                 .MinimumLength(5).WithMessage("Address must have at least 5 characters")
                 .MaximumLength(50).WithMessage("Address cant exceed 20 characters");
 
-            RuleFor(x => x.Model)
+            RuleFor(x => x.Modeel)
                 .NotEmpty().NotNull().WithMessage("This field is Required")
                 .MinimumLength(5).WithMessage("Model must be at least 5 charachters")
                 .MaximumLength(20).WithMessage("Model can't exceed 20 characters")
@@ -46,16 +45,16 @@ namespace Application.Poses.ViewModels
                 .Must(BeValidName).WithMessage("Brand can only contain letters");
 
             RuleFor(x => x.MorningOpening)
-                .NotEmpty().NotNull().WithMessage("This field is Required");
+                .NotNull().WithMessage("This field is Required");
             
             RuleFor(x => x.MorningClosing)
-                .NotEmpty().NotNull().WithMessage("This field is Required");
+                .NotNull().WithMessage("This field is Required");
             
             RuleFor(x => x.AfternoonOpening)
-                .NotEmpty().NotNull().WithMessage("This field is Required");
+                .NotNull().WithMessage("This field is Required");
             
             RuleFor(x => x.AfternoonClosing)
-                .NotEmpty().NotNull().WithMessage("This field is Required");
+                .NotNull().WithMessage("This field is Required");
 
             RuleFor(x => x.CityId)
                 .NotEmpty().NotNull().WithMessage("This field is Required");

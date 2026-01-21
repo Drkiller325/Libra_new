@@ -53,10 +53,14 @@
 
         e.preventDefault();
 
-        if (history.length > 1) {
-            history.back();
+        const path = window.location.pathname; // e.g. "/Admin/GetEditUser/2"
+        const parts = path.split("/").filter(p => p); // ["Admin", "GetEditUser", "2"]
+
+        if (parts.length > 0) {
+            const base = "/" + parts[0]; // "/Admin" or "/Pos"
+            loadPage(base);
         } else {
-            loadPage("/Home/Index", false);
+            loadPage("/Home/Index");
         }
     });
 

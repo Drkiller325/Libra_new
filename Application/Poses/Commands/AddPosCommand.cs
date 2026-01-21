@@ -50,7 +50,7 @@ namespace Application.Poses.Commands
                 Cellphone = model.Cellphone,
                 Address = model.Address,
                 Brand = model.Brand,
-                Model = model.Model,
+                Model = model.Modeel,
                 MorningOpening = model.MorningOpening,
                 MorningClosing = model.MorningClosing,
                 AfternoonOpening = model.AfternoonOpening,

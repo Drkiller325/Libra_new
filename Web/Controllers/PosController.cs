@@ -52,10 +52,10 @@ namespace Libra.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> GetAddPos()
+        public async Task<ActionResult> GetAddPos(CancellationToken cancellationToken)
         {
-            var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
-            var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+            var Cities = await _mediator.Send(new GetAllCitiesQuery() { }, cancellationToken);
+            var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { }, cancellationToken);
 
             List<DayViewModel> Days = new List<DayViewModel>
             {
@@ -97,7 +97,7 @@ namespace Libra.Controllers
                 ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
                 ViewBag.Cities = new SelectList(Cities, "Id", "City");
 
-                return View(model);
+                return View("GetAddPos", model);
             }
             else
             {
@@ -117,9 +117,17 @@ namespace Libra.Controllers
                         return Json(new { StatusCode = 500, message = "A problem on the server occured. Try again" });
                     }
                 }
-                catch
+                catch(Exception e)
                 {
-                    return Json(new { success = false, message = "A problem on the server occured. Try again!" });
+                    ModelState.AddModelError("Name", e.Message);
+
+                    var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
+                    var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+
+                    ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
+                    ViewBag.Cities = new SelectList(Cities, "Id", "City");
+
+                    return View("GetAddPos", model);
                 }
             }
         }
