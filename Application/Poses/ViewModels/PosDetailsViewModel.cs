@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Application.Poses.ViewModels
@@ -21,6 +22,7 @@ namespace Application.Poses.ViewModels
         public TimeSpan MorningClosing { get; set; }
         public TimeSpan AfternoonOpening { get; set; }
         public TimeSpan AfternoonClosing { get; set; }
-        public List<DayViewModel> ClosingDays { get; set; }
+        public string ClosingDays { get; set; }
+        public List<PosIssueViewModel> Issues { get; set; }
     }
 }

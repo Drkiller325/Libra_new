@@ -32,7 +32,7 @@ namespace Application.Users.Queries
             //var userViewModels = new List<UserViewModel>();
 
             List<UserViewModel> userViewModels = await _context.Users
-                .Include(x => x.UserType)
+                //.Include(x => x.UserType)
                 .Select(user =>
              new UserViewModel
              {

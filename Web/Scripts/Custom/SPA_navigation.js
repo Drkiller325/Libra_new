@@ -17,16 +17,29 @@
             content.innerHTML = newContent.innerHTML;
             content.classList.remove("loading");
 
-
-            initDataTables();
-            initTableInteractions("usersTable", "Admin", "User");
-            initTableInteractions("PosesTable", "Pos", "Pos");
-
+            runPageScripts();
 
             if (pushState) {
                 history.pushState({}, "", url);
             }
         }, 200);
+    }
+
+    function runPageScripts() {
+        content.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+
+            if (oldScript.src) {
+                newScript.src = oldScript.src; // external script
+            } else {
+                newScript.textContent = oldScript.textContent; // inline script
+            }
+
+            document.head.appendChild(newScript).parentNode.removeChild(newScript);
+        });
+        initDataTables();
+        initTableInteractions("usersTable", "Admin", "User");
+        initTableInteractions("PosesTable", "Pos", "Pos");
     }
 
     window.loadPage = loadPage;

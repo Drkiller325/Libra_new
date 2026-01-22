@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -39,7 +40,7 @@ namespace Libra.Controllers
 
             try
             {
-                var Poses = await _mediator.Send(new GetAllPosQuery() { });
+                var Poses = await _mediator.Send(new GetAllPosQuery() { }, cancellationToken);
 
                 return Json(Poses, JsonRequestBehavior.AllowGet);
             }
@@ -136,15 +137,96 @@ namespace Libra.Controllers
         public async Task<ActionResult> GetPosDetails(int id)
         {
             var pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
+            if (pos == null) return View("Erorr");
+
             var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
             var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
 
             ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
             ViewBag.Cities = new SelectList(Cities, "Id", "City");
 
+            var resultpos = new PosDetailsViewModel
+            {
+                Id = pos.Id,
+                Name = pos.Name,
+                Telephone = pos.Telephone,
+                Cellphone = pos.Cellphone,
+                Address = pos.Address,
+                Brand = pos.Brand,
+                Modeel = pos.Modeel,
+                CityId = pos.CityId,
+                ConnectionTypeId = pos.ConnectionTypeId,
+                MorningOpening = pos.MorningOpening,
+                MorningClosing = pos.MorningClosing,
+                AfternoonOpening = pos.AfternoonOpening,
+                AfternoonClosing = pos.AfternoonClosing,
+                ClosingDays = pos.ClosingDays,
+                Issues = pos.Issues
+            };
+
+            return View(resultpos);
+
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> GetEditPos(int id)
+        {
+            var pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
             if (pos == null) return View("Erorr");
-            else
-                return View(pos);
+
+            var days = pos.ClosingDays.Split(',').ToList();
+
+            var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
+            var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+
+            ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
+            ViewBag.Cities = new SelectList(Cities, "Id", "City");
+
+
+            List<DayViewModel> Days = new List<DayViewModel>
+            {
+                new DayViewModel { Day = "Sun", IsChecked = days.Contains("Sun") },
+                new DayViewModel { Day = "Mon", IsChecked = days.Contains("Mon") },
+                new DayViewModel { Day = "Tue", IsChecked = days.Contains("Tue") },
+                new DayViewModel { Day = "Wed", IsChecked = days.Contains("Wed") },
+                new DayViewModel { Day = "Thu", IsChecked = days.Contains("Thu") },
+                new DayViewModel { Day = "Fri", IsChecked = days.Contains("Fri") },
+                new DayViewModel { Day = "Sat", IsChecked = days.Contains("Sat") }
+            };
+
+
+            var model = new EditPosViewModel
+            {
+                Id = pos.Id,
+                Name = pos.Name,
+                Telephone = pos.Telephone,
+                Cellphone = pos.Cellphone,
+                Address = pos.Address,
+                Brand = pos.Brand,
+                Modeel = pos.Modeel,
+                CityId = pos.CityId,
+                ConnectionTypeId = pos.ConnectionTypeId,
+                MorningOpening = pos.MorningOpening,
+                MorningClosing = pos.MorningClosing,
+                AfternoonOpening = pos.AfternoonOpening,
+                AfternoonClosing = pos.AfternoonClosing,
+                ClosingDays = Days
+            };
+
+            return View(model);
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPos(int id)
+        {
+            var pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
+            if (pos == null) return View("Erorr");
+
+            return View();
 
         }
     }

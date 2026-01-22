@@ -3,9 +3,14 @@
         if ($.fn.DataTable.isDataTable(this)) return;
 
         const key = this.dataset.table;
-        const config = tableList[key]?.();
 
-        if (!config) return;
+        const data = window.issuesData || null;
+
+        const configFactory = tableList[key];
+
+        if (!configFactory) return;
+
+        const config = configFactory(data);
 
         $(this).DataTable(config);
     });

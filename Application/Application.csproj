@@ -189,7 +189,9 @@
     <Compile Include="Interfaces\IAppDbContext.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
+    <Compile Include="Issues\Queries\GetIssuesByPosId.cs" />
     <Compile Include="Poses\Commands\AddPosCommand.cs" />
+    <Compile Include="Poses\Commands\EditPosCommand.cs" />
     <Compile Include="Poses\Queries\GetAllCitiesQuery.cs" />
     <Compile Include="Poses\Queries\GetAllConnectionTypes.cs" />
     <Compile Include="Poses\Queries\GetAllPosQuery.cs" />
@@ -216,6 +218,7 @@
     <Compile Include="Users\ViewModels\AddUserViewModel.cs" />
     <Compile Include="Users\ViewModels\EditUserViewModel.cs" />
     <Compile Include="Users\ViewModels\LoginUserViewModel.cs" />
+    <Compile Include="Poses\ViewModels\PosIssueViewModel.cs" />
     <Compile Include="Users\ViewModels\RoleViewModel.cs" />
     <Compile Include="Users\ViewModels\UserByNameAndPasswordViewModel.cs" />
     <Compile Include="Users\ViewModels\UserViewModel.cs" />
@@ -230,7 +233,10 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Issues\Commands\" />
+    <Folder Include="Issues\ViewModels\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
