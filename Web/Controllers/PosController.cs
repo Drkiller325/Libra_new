@@ -131,5 +131,21 @@ namespace Libra.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetPosDetails(int id)
+        {
+            var pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
+            var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
+            var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+
+            ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
+            ViewBag.Cities = new SelectList(Cities, "Id", "City");
+
+            if (pos == null) return View("Erorr");
+            else
+                return View(pos);
+
+        }
     }
 }

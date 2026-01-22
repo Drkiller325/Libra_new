@@ -193,11 +193,15 @@
     <Compile Include="Poses\Queries\GetAllCitiesQuery.cs" />
     <Compile Include="Poses\Queries\GetAllConnectionTypes.cs" />
     <Compile Include="Poses\Queries\GetAllPosQuery.cs" />
+    <Compile Include="Poses\Queries\GetPosByIdQuery.cs" />
     <Compile Include="Poses\ViewModels\AddPosValidator.cs" />
     <Compile Include="Poses\ViewModels\CityViewModel.cs" />
     <Compile Include="Poses\ViewModels\ConnectionTypeViewModel.cs" />
     <Compile Include="Poses\ViewModels\DayViewModel.cs" />
-    <Compile Include="Poses\ViewModels\GetPosViewModel.cs" />
+    <Compile Include="Poses\ViewModels\GetPosesViewModel.cs" />
+    <Compile Include="Poses\ViewModels\EditPosViewModel.cs" />
+    <Compile Include="Poses\ViewModels\PosDetailsViewModel.cs" />
+    <Compile Include="Poses\ViewModels\PosViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\Commands\AddUserCommand.cs" />
     <Compile Include="Users\Commands\EditUserCommand.cs" />

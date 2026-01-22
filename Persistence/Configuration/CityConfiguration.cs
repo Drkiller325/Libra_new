@@ -14,7 +14,7 @@ namespace Persistence.Configuration
         {
             HasKey(x => x.Id);
 
-            Property(x => x.CityName).IsRequired().HasMaxLength(50);
+            Property(x => x.CityName).IsRequired().HasMaxLength(25);
         }
     }
 }

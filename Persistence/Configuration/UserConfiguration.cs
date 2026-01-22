@@ -16,13 +16,13 @@ namespace Persistence.Configuration
         {
             HasKey(x => x.Id);
 
-            Property(x => x.Name).HasMaxLength(128).IsRequired();
+            Property(x => x.Name).HasMaxLength(50).IsRequired();
 
-            Property(x => x.Login).HasMaxLength(10).IsRequired();
+            Property(x => x.Login).HasMaxLength(25).IsRequired();
 
             HasIndex(x => x.Login).IsUnique();
 
-            Property(x => x.Email).HasMaxLength(128).IsRequired();
+            Property(x => x.Email).HasMaxLength(50).IsRequired();
 
             HasIndex(x => x.Email).IsUnique();
 

@@ -25,20 +25,14 @@ namespace Application.Poses.Queries
         }
         public async Task<IEnumerable<CityViewModel>> Handle(GetAllCitiesQuery request, CancellationToken cancellationToken)
         {
-            var cities = await _context.Cities.ToListAsync(cancellationToken);
-
-            var resultCities = new List<CityViewModel>();
-
-            foreach (var city in cities)
+            List<CityViewModel> cities = await _context.Cities.Select(city => new CityViewModel
             {
-                var temp = new CityViewModel
-                {
-                    Id = city.Id,
-                    City = city.CityName
-                };
-                resultCities.Add(temp);
-            }
-            return resultCities;
+                Id = city.Id,
+                City = city.CityName
+            }).ToListAsync(cancellationToken);
+
+           
+            return cities;
         }
     }
 }

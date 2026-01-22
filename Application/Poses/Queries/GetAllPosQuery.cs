@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Application.Poses.Queries
 {
-    public class GetAllPosQuery : IRequest<IEnumerable<GetPosViewModel>>
+    public class GetAllPosQuery : IRequest<IEnumerable<GetPosesViewModel>>
     {
     }
 
-    public class GetAllPosQueryHandler : IRequestHandler<GetAllPosQuery, IEnumerable<GetPosViewModel>>
+    public class GetAllPosQueryHandler : IRequestHandler<GetAllPosQuery, IEnumerable<GetPosesViewModel>>
     {
         private readonly IAppDbContext _context;
 
@@ -23,28 +23,24 @@ namespace Application.Poses.Queries
         {
             _context = context;
         }
-        public async Task<IEnumerable<GetPosViewModel>> Handle(GetAllPosQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetPosesViewModel>> Handle(GetAllPosQuery request, CancellationToken cancellationToken)
         {
-            var Pos = await _context.Pos.Include(x => x.Issues).Include(x => x.City).ToListAsync(cancellationToken);
-
-            var PosViewModels = new List<GetPosViewModel>();
-
-            foreach(var pos in Pos)
+            var Poses = await _context.Pos
+                .Include(x => x.Issues)
+                .Include(x => x.City)
+                .Select(pos => 
+                new GetPosesViewModel
             {
-                var posViewModel = new GetPosViewModel
-                {
-                    Id = pos.Id,
-                    Name = pos.Name,
-                    Address = pos.Address,
-                    City = pos.City.CityName,
-                    Telephone = pos.Telephone,
-                    IssueCount = pos.Issues.Count(),
-                };
+                Id = pos.Id,
+                Name = pos.Name,
+                Address = pos.Address,
+                City = pos.City.CityName,
+                Telephone = pos.Telephone,
+                IssueCount = pos.Issues.Count(),
+            }).ToListAsync(cancellationToken);
 
-                PosViewModels.Add(posViewModel);
-            }
 
-            return PosViewModels;
+            return Poses;
         }
     }
 }

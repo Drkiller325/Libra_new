@@ -25,20 +25,14 @@ namespace Application.Poses.Queries
         }
         public async Task<IEnumerable<ConnectionTypeViewModel>> Handle(GetAllConnectionTypes request, CancellationToken cancellationToken)
         {
-            var connTypes = await _context.ConnectionTypes.ToListAsync(cancellationToken);
-
-            var resultConnTypes = new List<ConnectionTypeViewModel>();
-
-            foreach(var connType in connTypes)
+            var connTypes = await _context.ConnectionTypes.Select(connType => new ConnectionTypeViewModel
             {
-                var temp = new ConnectionTypeViewModel
-                {
-                    Id = connType.Id,
-                    Type = connType.ConnType
-                };
-                resultConnTypes.Add(temp);
-            }
-            return resultConnTypes;
+                Id = connType.Id,
+                Type = connType.ConnType
+            }).ToListAsync(cancellationToken);
+
+            
+            return connTypes;
         }
     }
 }

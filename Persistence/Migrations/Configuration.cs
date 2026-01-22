@@ -118,7 +118,7 @@
                 MorningClosing = new TimeSpan(12, 0, 0),
                 AfternoonOpening = new TimeSpan(13, 0, 0),
                 AfternoonClosing = new TimeSpan(19, 0, 0),
-                DaysClosed = "6,7",
+                DaysClosed = "Fri,Sat",
                 InsertDate = DateTime.Now
             };
             var Pos3 = new Pos
@@ -135,7 +135,7 @@
                 MorningClosing = new TimeSpan(11, 0, 0),
                 AfternoonOpening = new TimeSpan(13, 0, 0),
                 AfternoonClosing = new TimeSpan(19, 0, 0),
-                DaysClosed = "6,7",
+                DaysClosed = "Sun,Sat",
                 InsertDate = DateTime.Now
             };
 

@@ -2426,6 +2426,8 @@
     <Content Include="Views\Admin\GetEditUser.cshtml" />
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Pos\GetAddPos.cshtml" />
+    <Content Include="Views\Pos\GetEditPos.cshtml" />
+    <Content Include="Views\Pos\GetPosDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
