@@ -27,15 +27,14 @@ function initTableInteractions (tableId, controller, entity) {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
             selectedUser = null;
-            $(`#edit${entity}Btn`).prop('disabled', !selectedUser);
-            $(`#${entity}DetailsBtn`).prop('disabled', !selectedUser);
         } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
             selectedUser = table.row(this).data();
-            $(`#edit${entity}Btn`).prop('disabled', !selectedUser);
-            $(`#${entity}DetailsBtn`).prop('disabled', !selectedUser);
         }
+        $(`#edit${entity}Btn`).prop('disabled', !selectedUser);
+        $(`#${entity}DetailsBtn`).prop('disabled', !selectedUser);
+        $(`#Delete${entity}Btn`).prop('disabled', !selectedUser);
 
     });
 
@@ -49,6 +48,10 @@ function initTableInteractions (tableId, controller, entity) {
 
     $(`#${entity}DetailsBtn`).off('click').on('click', function () {
         loadPage(`/${controller}/Get${entity}Details/${selectedUser.Id}`);
+    });
+
+    $(`#Delete${entity}Btn`).off('click').on('click', function () {
+        loadPage(`/${controller}/GetDelete${entity}/${selectedUser.Id}`);
     });
 
     

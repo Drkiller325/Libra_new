@@ -2428,6 +2428,7 @@
     <Content Include="Views\Pos\GetAddPos.cshtml" />
     <Content Include="Views\Pos\GetEditPos.cshtml" />
     <Content Include="Views\Pos\GetPosDetails.cshtml" />
+    <Content Include="Views\Pos\GetDeletePos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

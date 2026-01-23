@@ -2,7 +2,7 @@
 @model PosDetailsViewModel
 
 <div class="modal-header mb-4">
-    <h3 class="modal-title" id="staticBackdropLabel">Create a new Pos</h3>
+    <h3 class="modal-title text-danger" id="staticBackdropLabel">Delete Pos - @Model.Name and All Issues asosiated?</h3>
     <button type="button" class="btn-close" id="btnCancel" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
@@ -167,7 +167,15 @@
            style="width:100%" data-table="IssueByPosIdTable"></table>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Back</button>
+        @using (Ajax.BeginForm("DeletePos", "Pos", new AjaxOptions
+        {
+            HttpMethod = "POST",
+        }, new { enctype = "multipart/form-data", id = "AddPosForm" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Back</button>
+        }
     </div>
 
 

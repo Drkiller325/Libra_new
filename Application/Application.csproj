@@ -191,6 +191,7 @@
     <Compile Include="Interfaces\IDateTime.cs" />
     <Compile Include="Issues\Queries\GetIssuesByPosId.cs" />
     <Compile Include="Poses\Commands\AddPosCommand.cs" />
+    <Compile Include="Poses\Commands\DeletePosCommand.cs" />
     <Compile Include="Poses\Commands\EditPosCommand.cs" />
     <Compile Include="Poses\Queries\GetAllCitiesQuery.cs" />
     <Compile Include="Poses\Queries\GetAllConnectionTypes.cs" />
