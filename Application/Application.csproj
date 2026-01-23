@@ -200,6 +200,7 @@
     <Compile Include="Poses\ViewModels\CityViewModel.cs" />
     <Compile Include="Poses\ViewModels\ConnectionTypeViewModel.cs" />
     <Compile Include="Poses\ViewModels\DayViewModel.cs" />
+    <Compile Include="Poses\ViewModels\EditPosValidator.cs" />
     <Compile Include="Poses\ViewModels\GetPosesViewModel.cs" />
     <Compile Include="Poses\ViewModels\EditPosViewModel.cs" />
     <Compile Include="Poses\ViewModels\PosDetailsViewModel.cs" />

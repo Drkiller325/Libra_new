@@ -20,11 +20,13 @@ namespace Libra.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IValidator<AddPosViewModel> _AddPosValidator;
+        private readonly IValidator<EditPosViewModel> _EditPosValidator;
 
-        public PosController(IMediator mediator, IValidator<AddPosViewModel> AddPosValidator)
+        public PosController(IMediator mediator, IValidator<AddPosViewModel> AddPosValidator, IValidator<EditPosViewModel> EditPosValidator)
         {
             _mediator = mediator;
             _AddPosValidator = AddPosValidator;
+            _EditPosValidator = EditPosValidator;
         }
 
 
@@ -172,7 +174,7 @@ namespace Libra.Controllers
         [HttpGet]
         public async Task<ActionResult> GetEditPos(int id)
         {
-            var pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
+            PosViewModel pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
             if (pos == null) return View("Erorr");
 
             var days = pos.ClosingDays.Split(',').ToList();
@@ -221,12 +223,55 @@ namespace Libra.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditPos(int id)
+        public async Task<ActionResult> EditPos(EditPosViewModel model)
         {
-            var pos = await _mediator.Send(new GetPosByIdQuery() { Id = id });
-            if (pos == null) return View("Erorr");
+            var validationResult = _EditPosValidator.Validate(model);
 
-            return View();
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
+                var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+
+                ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
+                ViewBag.Cities = new SelectList(Cities, "Id", "City");
+                return View("GetEditPos", model);
+            }
+            else
+            {
+                try
+                {
+                    var editPos = await _mediator.Send(new EditPosCommand()
+                    {
+                        Data = model
+                    });
+
+                    if (editPos) return RedirectToAction("Index");
+                    else
+                    {
+                        var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
+                        var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+
+                        ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
+                        ViewBag.Cities = new SelectList(Cities, "Id", "City");
+                        return View("GetEditPos", model);
+                    }
+                }
+                catch(Exception e)
+                {
+                    var Cities = await _mediator.Send(new GetAllCitiesQuery() { });
+                    var ConnTypes = await _mediator.Send(new GetAllConnectionTypes() { });
+
+                    ViewBag.ConnectionTypes = new SelectList(ConnTypes, "Id", "Type");
+                    ViewBag.Cities = new SelectList(Cities, "Id", "City");
+                    ModelState.AddModelError("", e.Message);
+                    return View("GetEditPos", model);
+                }
+            }
 
         }
     }
