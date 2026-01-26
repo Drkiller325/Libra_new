@@ -118,7 +118,7 @@
                 MorningClosing = new TimeSpan(12, 0, 0),
                 AfternoonOpening = new TimeSpan(13, 0, 0),
                 AfternoonClosing = new TimeSpan(19, 0, 0),
-                DaysClosed = "6,7",
+                DaysClosed = "Fri,Sat",
                 InsertDate = DateTime.Now
             };
             var Pos3 = new Pos
@@ -135,7 +135,7 @@
                 MorningClosing = new TimeSpan(11, 0, 0),
                 AfternoonOpening = new TimeSpan(13, 0, 0),
                 AfternoonClosing = new TimeSpan(19, 0, 0),
-                DaysClosed = "6,7",
+                DaysClosed = "Sun,Sat",
                 InsertDate = DateTime.Now
             };
 
@@ -166,27 +166,27 @@
                 Priority = "Normal",
                 Memo = "memo",
                 Description = "this is my issue",
-                AssignedId = role2.Id,
-                TypeId = IssueType1.Id,
-                SubTypeId = Issue1SubType2.Id,
-                PosId = Pos1.Id,
-                CreatedById = user1.Id,
+                Assigned = role2,
+                Type = IssueType1,
+                SubType = Issue1SubType2,
+                Pos = Pos1,
+                CreatedBy = user1,
                 Created = DateTime.Now,
-                StatusId = status4.Id
+                Status = status4
             };
             var Issue2 = new Issue
             {
                 Priority = "High",
                 Memo = "memo 2",
                 Description = "this is my issue 2",
-                AssignedId = role3.Id,
-                TypeId = IssueType2.Id,
-                SubTypeId = Issue1SubType1.Id,
-                PosId = Pos2.Id,
+                Assigned = role3,
+                Type = IssueType2,
+                SubType = Issue1SubType1,
+                Pos = Pos2,
                 Solution = "this is the solution for problem",
-                CreatedById = user3.Id,
+                CreatedBy = user3,
                 Created = DateTime.Now,
-                StatusId = status4.Id
+                Status = status4
             };
             var Issue3 = new Issue
             {

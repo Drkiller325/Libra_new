@@ -96,9 +96,12 @@ namespace Web.Controllers
                         return Json(new { StatusCode = 500, message = "A problem on the server occured. Try again" });
                     }
                 }
-                catch
+                catch(Exception e)
                 {
-                    return Json(new { success = false, message = "A problem on the server occured. Try again!" });
+                    ModelState.AddModelError("", e.Message);
+                    var roles = await _mediator.Send(new GetUserRolesQuery() { });
+                    ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+                    return View("GetAddUser", model);
                 }
 
             }
@@ -143,7 +146,7 @@ namespace Web.Controllers
 
                 var roles = await _mediator.Send(new GetUserRolesQuery() { });
                 ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
-                return View(model);
+                return View("GetEditUser", model);
             }
             else
             {
@@ -157,15 +160,19 @@ namespace Web.Controllers
                     if (editUser) return RedirectToAction("Index");
                     else
                     {
-                        ViewBag.Erorr = "An error occured in the server";
-                        return RedirectToAction($"GetEditUser/{model.Id}");
+                        var roles = await _mediator.Send(new GetUserRolesQuery() { });
+                        ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+                        ModelState.AddModelError("", "An error occured in the server");
+                        return View("GetEditUser", model);
                     }
 
                 }
                 catch(Exception e)
                 {
-                    ViewBag.Error = e.Message;
-                    return RedirectToAction($"GetEditUser/{model.Id}");
+                    var roles = await _mediator.Send(new GetUserRolesQuery() { });
+                    ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
+                    ModelState.AddModelError("", e.Message);
+                    return View("GetEditUser", model);
                 }
             }
         }

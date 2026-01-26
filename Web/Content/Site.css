@@ -132,7 +132,7 @@ hr {
 
 
 /* Blue header row (categories) */
-#usersTable thead th {
+ thead th {
     background-color: #007bff; /* Bootstrap blue, change if you like */
     color: white; /* White text */
     border-color: #0056b3; /* Darker border */
@@ -172,3 +172,8 @@ hr {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+
+.form-group {
+    position: relative;
+}
+
