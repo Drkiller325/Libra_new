@@ -40,6 +40,7 @@
         initDataTables();
         initTableInteractions("usersTable", "Admin", "User");
         initTableInteractions("PosesTable", "Pos", "Pos");
+        initTableInteractions("IssuesTable", "Issue", "Issue");
     }
 
     window.loadPage = loadPage;

@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Application.Poses.Queries
 {
-    public class GetAllPosQuery : IRequest<IEnumerable<GetPosesViewModel>>
+    public class GetAllPosQuery : IRequest<IEnumerable<PosesGridViewModel>>
     {
     }
 
-    public class GetAllPosQueryHandler : IRequestHandler<GetAllPosQuery, IEnumerable<GetPosesViewModel>>
+    public class GetAllPosQueryHandler : IRequestHandler<GetAllPosQuery, IEnumerable<PosesGridViewModel>>
     {
         private readonly IAppDbContext _context;
 
@@ -23,13 +23,13 @@ namespace Application.Poses.Queries
         {
             _context = context;
         }
-        public async Task<IEnumerable<GetPosesViewModel>> Handle(GetAllPosQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PosesGridViewModel>> Handle(GetAllPosQuery request, CancellationToken cancellationToken)
         {
             var Poses = await _context.Pos
                 .Include(x => x.Issues)
                 .Include(x => x.City)
                 .Select(pos => 
-                new GetPosesViewModel
+                new PosesGridViewModel
             {
                 Id = pos.Id,
                 Name = pos.Name,

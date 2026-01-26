@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries
 {
-    public class GetAllUsersQuery : IRequest<IEnumerable<UserViewModel>>
+    public class GetAllUsersQuery : IRequest<IEnumerable<UsersGridViewModel>>
     {
     }
 
-    public class GetUsersHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<UserViewModel>>
+    public class GetUsersHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<UsersGridViewModel>>
     {
         private readonly IAppDbContext _context;
 
@@ -25,16 +25,16 @@ namespace Application.Users.Queries
             _context = context;
         }
 
-        public async Task<IEnumerable<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UsersGridViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             //var users = await _context.Users.Include(x => x.UserType).ToListAsync(cancellationToken);
 
             //var userViewModels = new List<UserViewModel>();
 
-            List<UserViewModel> userViewModels = await _context.Users
+            List<UsersGridViewModel> userViewModels = await _context.Users
                 //.Include(x => x.UserType)
                 .Select(user =>
-             new UserViewModel
+             new UsersGridViewModel
              {
                  Id = user.Id,
                  Name = user.Name,

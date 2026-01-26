@@ -189,7 +189,8 @@
     <Compile Include="Interfaces\IAppDbContext.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
-    <Compile Include="Issues\Queries\GetIssuesByPosId.cs" />
+    <Compile Include="Issues\Queries\GetIssuesByPosIdQuery.cs" />
+    <Compile Include="Issues\Queries\GetIssuesGridQuery.cs" />
     <Compile Include="Poses\Commands\AddPosCommand.cs" />
     <Compile Include="Poses\Commands\DeletePosCommand.cs" />
     <Compile Include="Poses\Commands\EditPosCommand.cs" />
@@ -202,7 +203,7 @@
     <Compile Include="Poses\ViewModels\ConnectionTypeViewModel.cs" />
     <Compile Include="Poses\ViewModels\DayViewModel.cs" />
     <Compile Include="Poses\ViewModels\EditPosValidator.cs" />
-    <Compile Include="Poses\ViewModels\GetPosesViewModel.cs" />
+    <Compile Include="Poses\ViewModels\PosesGridViewModel.cs" />
     <Compile Include="Poses\ViewModels\EditPosViewModel.cs" />
     <Compile Include="Poses\ViewModels\PosDetailsViewModel.cs" />
     <Compile Include="Poses\ViewModels\PosViewModel.cs" />
@@ -220,10 +221,10 @@
     <Compile Include="Users\ViewModels\AddUserViewModel.cs" />
     <Compile Include="Users\ViewModels\EditUserViewModel.cs" />
     <Compile Include="Users\ViewModels\LoginUserViewModel.cs" />
-    <Compile Include="Poses\ViewModels\PosIssueViewModel.cs" />
+    <Compile Include="Issues\ViewModels\IssueGridViewModel.cs" />
     <Compile Include="Users\ViewModels\RoleViewModel.cs" />
     <Compile Include="Users\ViewModels\UserByNameAndPasswordViewModel.cs" />
-    <Compile Include="Users\ViewModels\UserViewModel.cs" />
+    <Compile Include="Users\ViewModels\UsersGridViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
@@ -237,7 +238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Issues\Commands\" />
-    <Folder Include="Issues\ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

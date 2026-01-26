@@ -4,6 +4,18 @@
 }
 
 <div class="text-lg-start fw-bold">
-    <h2 class="display-4">Issues Page</h2>
+    <h2 class="display-4">Issues Manager</h2>
     <hr />
 </div>
+
+<div class="table-actions">
+    <button id="addIssueBtn">Add Issue</button>
+    <button id="editIssueBtn" disabled>Edit Issue</button>
+    <button id="IssueDetailsBtn" disabled>Details</button>
+    <button id="DeleteIssueBtn" disabled>Delete</button>
+</div>
+
+
+<table id="IssuesTable"
+       class="display stripe cell-border"
+       style="width:100%" data-table="IssuesTable"></table>

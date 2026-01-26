@@ -92,4 +92,68 @@
             }
         }
     }),
+    IssuesTable: () => ({
+        ajax: {
+            url: '/Issue/GetIssues',
+            type: 'GET',
+            dataSrc: ''
+        },
+        columns: [
+            { data: 'Id', title: "Issue#" },
+            { data: 'PosName', title: 'Pos Name' },
+            { data: 'CreatedBy', title: 'Created By' },
+            { data: 'Date', title: 'Date' },
+            { data: 'IssueType', title: 'Issue Type' },
+            { data: 'AssignedTo', title: 'Assigned To' },
+            { data: 'Memo', title: 'Memo' }
+        ],
+        language: {
+            search: "Filter records:", // Custom search placeholder
+            lengthMenu: "Show _MENU_ entries",
+            info: "Showing _START_ to _END_ of _TOTAL_ Positions",
+            paginate: {
+                firstLast: false,
+                previous: "Prev",
+                next: "Next"
+            }
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        }
+    }),
+    PosTable_Issue: () => ({
+        ajax: {
+            url: '/Pos/GetPoses',
+            type: 'GET',
+            dataSrc: ''
+        },
+        columns: [
+            { visible: false, data: 'Id' },
+            { data: 'Name', title: 'Pos Name' },
+            { data: 'Telephone', title: 'Telephone' },
+            { data: 'Address', title: 'Address' },
+            { data: 'City', title: 'City' }
+        ],
+        language: {
+            search: "Filter records:", // Custom search placeholder
+            lengthMenu: "Show _MENU_ entries",
+            info: "Showing _START_ to _END_ of _TOTAL_ Positions",
+            paginate: {
+                firstLast: false,
+                previous: "Prev",
+                next: "Next"
+            }
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        }
+    }),
 };

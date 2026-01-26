@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Issues.Queries
 {
-    internal class GetIssuesByPosId
+    public class GetIssuesByPosIdQuery
     {
     }
 }

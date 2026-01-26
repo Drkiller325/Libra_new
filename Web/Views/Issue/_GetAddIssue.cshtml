@@ -1,0 +1,70 @@
+﻿@using Application.Poses.ViewModels
+@model PosDetailsViewModel
+
+<div class="modal-header mb-4">
+    <h3 class="modal-title" id="staticBackdropLabel">New Issue</h3>
+    <button type="button" class="btn-close" id="btnCancel" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-content">
+    <div class="modal-header mb-2" style="background-color: lightblue; padding: 0.5rem">
+        <h5 class="modal-title fw-light" id="staticBackdropLabel">Search the POS</h5>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-credit-card" style="margin-right: unset"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control rounded"} })
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger validation-message", data_valmsg_for = "Name" })
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-telephone-fill" style="margin-right: unset"></i>
+                            </span>
+                            @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control rounded" })
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger validation-message", data_valmsg_for = "Cellphone" })
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cellphone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-phone" style="margin-right: unset"></i>
+                            </span>
+                            @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control rounded" })
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger validation-message", data_valmsg_for = "Cellphone" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-header" style="background-color: lightblue; padding: 0.5rem">
+        <h5 class="modal-title fw-light" id="staticBackdropLabel">Search results</h5>
+    </div>
+
+    <table id="PosTable_Issue"
+           class="display stripe cell-border"
+           style="width:100%" data-table="PosTable_Issue"></table>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Back</button>
+    </div>
+
+
+
+</div>
+

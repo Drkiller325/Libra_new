@@ -45,8 +45,6 @@
 
         <main>
             <div class="top-row px-4">
-                @if (User.IsInRole("admin"))
-                {
                     <a class="nav-link" style="color: cornflowerblue" href="#">
                         <i class="bi bi-person-fill" style="margin-right: unset"></i>
                         @User.Identity.Name
@@ -55,7 +53,6 @@
                         <i class="bi bi-box-arrow-right" style="margin-right: unset"></i>
                         @Html.ActionLink("Logout", "Logout", "Account")
                     </a>
-                }
             </div>
 
             <article id="spa-content" class="content px-4 spa-content">

@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly IMediator _mediator;
@@ -57,7 +57,7 @@ namespace Web.Controllers
 
             ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
 
-            return View();
+            return View("_GetAddUser");
         }
 
         [HttpPost]
