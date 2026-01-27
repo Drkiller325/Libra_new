@@ -16,15 +16,15 @@ namespace Persistence.Configuration
 
             Property(x => x.Name).IsRequired().HasMaxLength(50);
 
-            Property(x => x.Telephone).IsOptional().HasMaxLength(50);
+            Property(x => x.Telephone).IsOptional().HasMaxLength(10);
 
-            Property(x => x.Cellphone).IsOptional().HasMaxLength(50);
+            Property(x => x.Cellphone).IsOptional().HasMaxLength(10);
 
-            Property(x => x.Address).IsRequired().HasMaxLength(50);
+            Property(x => x.Address).IsRequired().HasMaxLength(100);
 
-            Property(x => x.Model).IsRequired().HasMaxLength(50);
+            Property(x => x.Model).IsRequired().HasMaxLength(25);
 
-            Property(x => x.Brand).IsOptional().HasMaxLength(50);
+            Property(x => x.Brand).IsOptional().HasMaxLength(25);
 
             HasRequired(x => x.City)
                 .WithMany(x => x.Poses)

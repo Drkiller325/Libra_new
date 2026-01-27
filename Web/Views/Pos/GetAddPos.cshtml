@@ -1,0 +1,196 @@
+﻿@using Application.Poses.ViewModels
+@model AddPosViewModel
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create a new Pos</h5>
+        <button type="button" class="btn-close" id="btnCancel" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" });
+    }
+    @using (Ajax.BeginForm("AddPos", "Pos", new AjaxOptions
+    {
+        HttpMethod = "POST",
+    }, new { enctype = "multipart/form-data", id = "AddPosForm" }))
+    {
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-credit-card" style="margin-right: unset"></i>
+                                </span>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control rounded" } })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger validation-message", data_valmsg_for = "Name" })
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-telephone-fill" style="margin-right: unset"></i>
+                                </span>
+                                @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control rounded" })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger validation-message", data_valmsg_for = "Telephone" })
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Cellphone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-phone" style="margin-right: unset"></i>
+                                </span>
+                                @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control rounded" })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger validation-message", data_valmsg_for = "Cellphone" })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, "Full Address", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-geo-alt-fill" style="margin-right: unset"></i>
+                                </span>
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control rounded" } })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger validation-message", data_valmsg_for = "Address" })
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CityId, "City", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                            <div class="input-group">
+                                @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "City", new { @class = "form-select dropdown-toggle" })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger validation-message", data_valmsg_for = "CityId" })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Brand, "Brand", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-credit-card" style="margin-right: unset"></i>
+                                </span>
+                                @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control rounded" } })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger validation-message", data_valmsg_for = "Brand" })
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Modeel, htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-telephone-fill" style="margin-right: unset"></i>
+                                </span>
+                                @Html.EditorFor(model => model.Modeel, new { htmlAttributes = new { @class = "form-control rounded" } })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Modeel, "", new { @class = "text-danger validation-message", data_valmsg_for = "Model" })
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConnectionTypeId, "Connection Type", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                            <div class="input-group">
+                                @Html.DropDownListFor(model => model.ConnectionTypeId, (SelectList)ViewBag.ConnectionTypes, "Connection Type", new { @class = "form-select dropdown-toggle" })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ConnectionTypeId, "", new { @class = "text-danger validation-message", data_valmsg_for = "ConnectionTypeId" })
+                    </div>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Opening hours and holidays</h5>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MorningOpening, "Morning", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+
+                            <div class="row">
+                                <div class="col-md-6 input-group-text">
+                                    <span class="input-group-text bg-primary text-white">
+                                        <i class="bi bi-clock" style="margin-right: unset"></i>
+                                    </span>
+                                    @Html.EditorFor(model => model.MorningOpening, new { htmlAttributes = new { @class = "form-control rounded", type = "time" } })
+                                </div>
+                                <div class="col-md-6 input-group-text">
+                                    <span class="input-group-text bg-primary text-white">
+                                        <i class="bi bi-clock" style="margin-right: unset"></i>
+                                    </span>
+                                    @Html.EditorFor(model => model.MorningClosing, new { htmlAttributes = new { @class = "form-control rounded", type = "time" } })
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger validation-message", data_valmsg_for = "MorningOpening" })
+                            @Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger validation-message", data_valmsg_for = "MorningClosing" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AfternoonOpening, "Afternoon", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+
+                            <div class="row">
+                                <div class="col-md-6 input-group-text">
+                                    <span class="input-group-text bg-primary text-white">
+                                        <i class="bi bi-clock" style="margin-right: unset"></i>
+                                    </span>
+                                    @Html.EditorFor(model => model.AfternoonOpening, new { htmlAttributes = new { @class = "form-control rounded", type = "time" } })
+                                </div>
+                                <div class="col-md-6 input-group-text">
+                                    <span class="input-group-text bg-primary text-white">
+                                        <i class="bi bi-clock" style="margin-right: unset"></i>
+                                    </span>
+                                    @Html.EditorFor(model => model.AfternoonClosing, new { htmlAttributes = new { @class = "form-control rounded", type = "time" } })
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger validation-message", data_valmsg_for = "AfternoonOpening" })
+                            @Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger validation-message", data_valmsg_for = "AfternoonClosing" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-group">
+                            <label class="control-label fw-bold mb-2">Closing Days</label>
+
+                            <div>
+                                @for (int i = 0; i < Model.ClosingDays.Count; i++)
+                                {
+                                    @Html.CheckBoxFor(model => model.ClosingDays[i].IsChecked, new { @class = "form-check-input m-2" })
+                                    @Html.HiddenFor(model => model.ClosingDays[i].Day)
+                                    @Model.ClosingDays[i].Day
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer"> 
+            <button type="submit" class="btn btn-primary">
+                Create
+            </button>
+            <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    }
+
+
+
+</div>

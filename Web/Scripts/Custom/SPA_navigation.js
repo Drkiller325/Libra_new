@@ -17,10 +17,7 @@
             content.innerHTML = newContent.innerHTML;
             content.classList.remove("loading");
 
-
-            initDataTables();
-            initTableInteractions();
-
+            runPageScripts();
 
             if (pushState) {
                 history.pushState({}, "", url);
@@ -28,7 +25,32 @@
         }, 200);
     }
 
+    function runPageScripts() {
+        content.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+
+            if (oldScript.src) {
+                newScript.src = oldScript.src; // external script
+            } else {
+                newScript.textContent = oldScript.textContent; // inline script
+            }
+
+            document.head.appendChild(newScript).parentNode.removeChild(newScript);
+        });
+        initDataTables();
+        initTableInteractions("usersTable", "Admin", "User");
+        initTableInteractions("PosesTable", "Pos", "Pos");
+    }
+
     window.loadPage = loadPage;
+
+    $(document).ready(function () {
+        $('input[type=text], input[type=password], input[type=email], select').on('input', function () {
+            var fieldName = $(this).attr('name');
+            $('span[data-valmsg-for="' + fieldName + '"]').text('');
+            $(this).removeClass('is-invalid');
+        });
+    });
 
     document.addEventListener("click", e => {
         const link = e.target.closest("a[data-spa]");
@@ -44,10 +66,14 @@
 
         e.preventDefault();
 
-        if (history.length > 1) {
-            history.back();
+        const path = window.location.pathname; // e.g. "/Admin/GetEditUser/2"
+        const parts = path.split("/").filter(p => p); // ["Admin", "GetEditUser", "2"]
+
+        if (parts.length > 0) {
+            const base = "/" + parts[0]; // "/Admin" or "/Pos"
+            loadPage(base);
         } else {
-            loadPage("/Home/Index", false);
+            loadPage("/Home/Index");
         }
     });
 

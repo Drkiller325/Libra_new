@@ -20,7 +20,7 @@ namespace Application.Users.ViewModels
                 .NotEmpty().NotNull().WithMessage("This field is required")
                 .MinimumLength(5).WithMessage("Name Should at least be 5 characters Long")
                 .MaximumLength(50).WithMessage("Name is too Long")
-                .Must(BeValidName)
+                .Must(BeValidName).WithMessage("Name can only contain letters")
                 .WithName("Name");
 
             RuleFor(x => x.Email)

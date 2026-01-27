@@ -1,0 +1,191 @@
+﻿@using Application.Poses.ViewModels
+@model PosDetailsViewModel
+
+<div class="modal-header mb-4">
+    <h3 class="modal-title text-danger" id="staticBackdropLabel">Delete Pos - @Model.Name and All Issues asosiated?</h3>
+    <button type="button" class="btn-close" id="btnCancel" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-content">
+    <div class="modal-header mb-2" style="background-color: lightblue; padding: 0.5rem">
+        <h5 class="modal-title fw-light" id="staticBackdropLabel">Pos Data</h5>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-credit-card" style="margin-right: unset"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control rounded", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-telephone-fill" style="margin-right: unset"></i>
+                            </span>
+                            @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control rounded", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cellphone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-phone" style="margin-right: unset"></i>
+                            </span>
+                            @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control rounded", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, "Full Address", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-geo-alt-fill" style="margin-right: unset"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control rounded", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CityId, "City", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                        <div class="input-group">
+                            @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "City", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Brand, "Brand", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-credit-card" style="margin-right: unset"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control rounded", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Modeel, htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="bi bi-telephone-fill" style="margin-right: unset"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Modeel, new { htmlAttributes = new { @class = "form-control rounded", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConnectionTypeId, "Connection Type", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+                        <div class="input-group">
+                            @Html.DropDownListFor(model => model.ConnectionTypeId, (SelectList)ViewBag.ConnectionTypes, "Connection Type", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-header" style="background-color: lightblue; padding: 0.5rem">
+        <h5 class="modal-title fw-light" id="staticBackdropLabel">Opening hours and holidays</h5>
+    </div>
+    <div class="row mt-2  m-0">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MorningOpening, "Morning", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+
+                <div class="row">
+                    <div class="col-md-6 input-group-text">
+                        <span class="input-group-text bg-primary text-white">
+                            <i class="bi bi-clock" style="margin-right: unset"></i>
+                        </span>
+                        @Html.EditorFor(model => model.MorningOpening, new { htmlAttributes = new { @class = "form-control rounded", type = "time", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-6 input-group-text">
+                        <span class="input-group-text bg-primary text-white">
+                            <i class="bi bi-clock" style="margin-right: unset"></i>
+                        </span>
+                        @Html.EditorFor(model => model.MorningClosing, new { htmlAttributes = new { @class = "form-control rounded", type = "time", @readonly = "readonly" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AfternoonOpening, "Afternoon", htmlAttributes: new { @class = "control-label fw-bold mb-2" })
+
+                <div class="row">
+                    <div class="col-md-6 input-group-text">
+                        <span class="input-group-text bg-primary text-white">
+                            <i class="bi bi-clock" style="margin-right: unset"></i>
+                        </span>
+                        @Html.EditorFor(model => model.AfternoonOpening, new { htmlAttributes = new { @class = "form-control rounded", type = "time", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-6 input-group-text">
+                        <span class="input-group-text bg-primary text-white">
+                            <i class="bi bi-clock" style="margin-right: unset"></i>
+                        </span>
+                        @Html.EditorFor(model => model.AfternoonClosing, new { htmlAttributes = new { @class = "form-control rounded", type = "time", @readonly = "readonly" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="form-group">
+                <label class="control-label fw-bold mb-2">Closing Days</label>
+
+                <div>
+                    @Html.EditorFor(model => model.ClosingDays, new { htmlAttributes = new { @class = "form-control rounded", @readonly = "readonly" } })
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-header mt-4" style="background-color: lightblue; padding: 0.5rem">
+        <h5 class="modal-title fw-light" id="staticBackdropLabel">Active Issues</h5>
+    </div>
+
+    <table id="IssuesByPosIdTable"
+           class="display stripe cell-border"
+           style="width:100%" data-table="IssueByPosIdTable"></table>
+
+    <div class="modal-footer">
+        @using (Ajax.BeginForm("DeletePos", "Pos", new AjaxOptions
+        {
+            HttpMethod = "POST",
+        }, new { enctype = "multipart/form-data", id = "AddPosForm" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Back</button>
+        }
+    </div>
+
+
+
+</div>
+
+<script>
+    // Render your list into JS
+    window.issuesData = @Html.Raw(Json.Encode(Model.Issues));
+    initDataTables();
+    window.issuesData = null;
+</script>
+

@@ -1,15 +1,7 @@
 ﻿﻿@using Application.Users.ViewModels
 @model EditUserViewModel
 
-<script>
-    $(document).ready(function () {
-        $('input[type=text], input[type=password], input[type=email], select').on('input', function () {
-            var fieldName = $(this).attr('name');
-            $('span[data-valmsg-for="' + fieldName + '"]').text('');
-            $(this).removeClass('is-invalid');
-        });
-    });
-</script>
+
 
 <div class="modal-content">
     <div class="modal-header">
@@ -19,19 +11,21 @@
     @using (Ajax.BeginForm($"EditUser/{Model.Id}", "Admin", new AjaxOptions
     {
         HttpMethod = "POST",
-        OnSuccess = "handleCreateUpdateUser"
     }, new { enctype = "multipart/form-data", id = "EditUserForm" }))
     {
         <div class="modal-body">
             @Html.AntiForgeryToken()
             <div class="form-horizontal">
-                @*@Html.HiddenFor(model => model.Id)*@
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" });
+                }
                 <div class="form-group row mb-2 px-4">
                     <div class="col-6 col-md-4">
                         @Html.LabelFor(model => model.Id, "Id", htmlAttributes: new { @class = "control-label col-md-2" })
                     </div>
                     <div class="col-12 col-md-8">
-                        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control ", @disabled = "disabled" } })
+                        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger validation-message", data_valmsg_for = "Id" })
                     </div>
                 </div>
@@ -40,23 +34,23 @@
                         @Html.LabelFor(model => model.Login, "Username", htmlAttributes: new { @class = "control-label col-md-2" })
                     </div>
                     <div class="col-12 col-md-8">
-                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control ", @disabled = "disabled" } })
+                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger validation-message", data_valmsg_for = "Login" })
                     </div>
                 </div>
                 <div class="form-group row mb-2 px-4">
                     <div class="col-6 col-md-4">
-                        @Html.LabelFor(model => model.OldPassword, "OldPassword", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.OldPassword, "OldPassword", htmlAttributes: new { @class = "control-label" })
                     </div>
                     <div class="col-12 col-md-8">
-                        @Html.PasswordFor(model => model.OldPassword,  htmlAttributes: new { @class = "form-control "} )
+                        @Html.PasswordFor(model => model.OldPassword, htmlAttributes: new { @class = "form-control " })
                         <small>Keep Empty if you dont want to change the password</small>
                         @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger validation-message", data_valmsg_for = "OldPassword" })
                     </div>
                 </div>
                 <div class="form-group row mb-2 px-4">
                     <div class="col-6 col-md-4">
-                        @Html.LabelFor(model => model.NewPassword, "New Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.NewPassword, "New Password", htmlAttributes: new { @class = "control-label" })
                     </div>
                     <div class="col-12 col-md-8">
                         @Html.PasswordFor(model => model.NewPassword, htmlAttributes: new { @class = "form-control " })
@@ -65,7 +59,7 @@
                 </div>
                 <div class="form-group row mb-2 px-4">
                     <div class="col-6 col-md-4">
-                        @Html.LabelFor(model => model.ConfirmPassword, "Confirm New Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.ConfirmPassword, "Confirm New Password", htmlAttributes: new { @class = "control-label" })
                     </div>
                     <div class="col-12 col-md-8">
                         @Html.PasswordFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-control " })
@@ -119,7 +113,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary custom-primary"><i class="bi bi-pencil"></i>Modify</button>
+            <button type="submit" class="btn btn-primary custom-primary">
+            <i class="bi bi-pencil"></i>
+            Modify</button>
             <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Cancel</button>
         </div>
     }
