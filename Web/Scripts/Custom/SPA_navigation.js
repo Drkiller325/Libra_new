@@ -2,6 +2,7 @@
 
     const content = document.getElementById("spa-content");
 
+    // inject html into body
     async function loadPage(url, pushState = true) {
         content.classList.add("loading");
 
@@ -41,18 +42,12 @@
         initTableInteractions("usersTable", "Admin", "User");
         initTableInteractions("PosesTable", "Pos", "Pos");
         initTableInteractions("IssuesTable", "Issue", "Issue");
+        initTableInteractions("PosTable_Issue", "Issue", "IssuePos");
     }
 
     window.loadPage = loadPage;
 
-    $(document).ready(function () {
-        $('input[type=text], input[type=password], input[type=email], select').on('input', function () {
-            var fieldName = $(this).attr('name');
-            $('span[data-valmsg-for="' + fieldName + '"]').text('');
-            $(this).removeClass('is-invalid');
-        });
-    });
-
+    //override <a> logic
     document.addEventListener("click", e => {
         const link = e.target.closest("a[data-spa]");
         if (!link) return;
@@ -61,6 +56,7 @@
         loadPage(link.href);
     });
 
+    //Cancel and back btn functionality
     document.addEventListener("click", function (e) {
         const btn = e.target.closest("#btnCancel");
         if (!btn) return;
@@ -78,6 +74,7 @@
         }
     });
 
+    // back btn in browser function
     window.addEventListener("popstate", (event) => {
         loadPage(location.pathname, false); // false = don't push state again
     });

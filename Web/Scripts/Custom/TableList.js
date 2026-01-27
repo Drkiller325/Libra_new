@@ -131,6 +131,7 @@
             type: 'GET',
             dataSrc: ''
         },
+        dom: 'lrtip',
         columns: [
             { visible: false, data: 'Id' },
             { data: 'Name', title: 'Pos Name' },
@@ -139,7 +140,6 @@
             { data: 'City', title: 'City' }
         ],
         language: {
-            search: "Filter records:", // Custom search placeholder
             lengthMenu: "Show _MENU_ entries",
             info: "Showing _START_ to _END_ of _TOTAL_ Positions",
             paginate: {
@@ -155,5 +155,20 @@
                 }
             }
         }
+    }),
+    AddIssuePosItem: () => ({
+        ajax: {
+            url: '/Issue/GetIssuePos',
+            type: 'GET',
+            dataSrc: ''
+        },
+        dom: 't',
+        columns: [
+            { visible: false, data: 'Id' },
+            { data: 'Name', title: 'Pos Name' },
+            { data: 'Telephone', title: 'Telephone' },
+            { data: 'Address', title: 'Address' },
+            { data: 'City', title: 'City' }
+        ]
     }),
 };

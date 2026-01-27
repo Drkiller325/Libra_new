@@ -13,12 +13,8 @@ using System.Threading.Tasks;
 
 namespace Application.Poses.Commands
 {
-    public class AddPosCommand : IRequest<bool>
-    {
-        public AddPosViewModel Data { get; set; }
-    }
 
-    public class AddPosCommandHandler : IRequestHandler<AddPosCommand, bool>
+    public class AddPosCommandHandler : IRequestHandler<AddPosViewModel, bool>
     {
         private readonly IAppDbContext _context;
 
@@ -26,9 +22,8 @@ namespace Application.Poses.Commands
         {
             _context = context;
         }
-        public async Task<bool> Handle(AddPosCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(AddPosViewModel model, CancellationToken cancellationToken)
         {
-            var model = request.Data;
 
             if (model == null) return false;
 

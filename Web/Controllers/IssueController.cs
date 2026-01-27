@@ -1,4 +1,5 @@
 ﻿using Application.Issues.Queries;
+using Application.Poses.Queries;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -39,9 +40,30 @@ namespace Web.Controllers
 
         }
 
+        [HttpGet]
         public ActionResult GetAddIssue()
         {
             return View("_GetAddIssue");
+        }
+
+        public async Task<ActionResult> GetIssuePos(int id)
+        {
+            try
+            {
+                var pos = await _mediator.Send(new GetPosByIdGridQuery() { Id = id });
+
+                return Json(pos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot send request via mediator" + ex);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetEditIssuePos(int id)
+        {
+            return View("_GetAddPosIssue", id);
         }
     }
 }

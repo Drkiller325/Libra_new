@@ -1,5 +1,5 @@
 ﻿@using Application.Poses.ViewModels
-@model PosDetailsViewModel
+@model PosesGridViewModel
 
 <div class="modal-header mb-4">
     <h3 class="modal-title" id="staticBackdropLabel">New Issue</h3>
@@ -37,7 +37,7 @@
                     </div>
                     @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger validation-message", data_valmsg_for = "Cellphone" })
                 </div>
-                <div class="col-md-3">
+                @*<div class="col-md-3">
                     <div class="form-group">
                         @Html.LabelFor(model => model.Cellphone, htmlAttributes: new { @class = "control-label fw-bold required mb-2" })
                         <div class="input-group">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger validation-message", data_valmsg_for = "Cellphone" })
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -56,12 +56,9 @@
         <h5 class="modal-title fw-light" id="staticBackdropLabel">Search results</h5>
     </div>
 
-    <div class="table-actions">
-        <button id="editIssuePosBtn">Add Issue</button>
-    </div>
-    <table id="PosTable_Issue"
+    <table id="AddIssuePosItem"
            class="display stripe cell-border"
-           style="width:100%" data-table="PosTable_Issue"></table>
+           style="width:100%" data-table="AddIssuePosItem"></table>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">Back</button>

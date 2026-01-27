@@ -31,7 +31,7 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             return View();
-            
+
         }
 
         [HttpGet]
@@ -75,7 +75,7 @@ namespace Web.Controllers
 
                 var roles = await _mediator.Send(new GetUserRolesQuery() { });
                 ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
-                return View("GetAddUser",model);
+                return View("GetAddUser", model);
             }
             else
             {
@@ -96,7 +96,7 @@ namespace Web.Controllers
                         return Json(new { StatusCode = 500, message = "A problem on the server occured. Try again" });
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     ModelState.AddModelError("", e.Message);
                     var roles = await _mediator.Send(new GetUserRolesQuery() { });
@@ -105,7 +105,7 @@ namespace Web.Controllers
                 }
 
             }
-            
+
         }
 
         [HttpGet]
@@ -167,7 +167,7 @@ namespace Web.Controllers
                     }
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     var roles = await _mediator.Send(new GetUserRolesQuery() { });
                     ViewBag.UserRoles = new SelectList(roles, "Id", "Role");
@@ -176,6 +176,6 @@ namespace Web.Controllers
                 }
             }
         }
-            
+
     }
 }

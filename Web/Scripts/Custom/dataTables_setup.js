@@ -22,6 +22,10 @@ function initTableInteractions (tableId, controller, entity) {
 
     const table = $(`#${tableId}`).DataTable();
 
+    $(`#edit${entity}Btn`).prop('disabled', !selectedUser);
+    $(`#${entity}DetailsBtn`).prop('disabled', !selectedUser);
+    $(`#Delete${entity}Btn`).prop('disabled', !selectedUser);
+
     $(`#${tableId} tbody`).off('click').on('click', 'tr', function () {
 
         if ($(this).hasClass('selected')) {
