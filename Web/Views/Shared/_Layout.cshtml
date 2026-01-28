@@ -72,11 +72,52 @@
 </html>
 
 
-<script>
+@*<script>
     document.addEventListener('DOMContentLoaded', function () {
 
         initDataTables();
         initTableInteractions("usersTable", "Admin", "User");
         initTableInteractions("PosesTable", "Pos", "Pos");
+    });
+</script>*@
+
+<script>
+    // sidebar navigation override
+    document.addEventListener("click", e => {
+        const link = e.target.closest("a[data-spa]");
+        if (!link) return;
+
+        e.preventDefault();
+        loadPage(link.href);
+    });
+
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest("#btnCancel");
+        if (!btn) return;
+
+        e.preventDefault();
+
+        const path = window.location.pathname; // e.g. "/Admin/GetEditUser/2"
+        const parts = path.split("/").filter(p => p); // ["Admin", "GetEditUser", "2"]
+
+        if (parts.length > 0) {
+            const base = "/" + parts[0]; // "/Admin" or "/Pos"
+            loadPage(base);
+        } else {
+            loadPage("/Home/Index");
+        }
+    });
+
+    $(document).ready(function () {
+        $('input[type=text], input[type=password], input[type=email], select').on('input', function () {
+            var fieldName = $(this).attr('name');
+            $('span[data-valmsg-for="' + fieldName + '"]').text('');
+            $(this).removeClass('is-invalid');
+        });
+    });
+
+    // back btn in browser function
+    window.addEventListener("popstate", (event) => {
+        loadPage(location.pathname, false); // false = don't push state again
     });
 </script>

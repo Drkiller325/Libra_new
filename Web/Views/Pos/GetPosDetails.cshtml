@@ -12,7 +12,6 @@
 
 <div class="modal-header mb-4">
     <h3 class="modal-title" id="staticBackdropLabel">Create a new Pos</h3>
-    <button type="button" class="btn-close" id="btnCancel" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
 <div class="modal-content">
@@ -185,8 +184,12 @@
 
 <script>
     // Render your list into JS
-    window.issuesData = @Html.Raw(Json.Encode(Model.Issues));
-    initDataTables();
-    window.issuesData = null;
+    var data = @Html.Raw(Json.Encode(Model.Issues));
+    initDataTables(data);
+
+
+    @*$('#btnCancel').on('click', function () {
+        loadPage('@Url.Action("Index")');
+    });*@
 </script>
 

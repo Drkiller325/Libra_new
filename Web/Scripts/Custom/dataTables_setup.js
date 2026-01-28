@@ -1,10 +1,8 @@
-﻿function initDataTables() {
+﻿function initDataTables(data) {
     $('[data-table]').each(function () {
         if ($.fn.DataTable.isDataTable(this)) return;
 
         const key = this.dataset.table;
-
-        const data = window.issuesData || null;
 
         const configFactory = tableList[key];
 

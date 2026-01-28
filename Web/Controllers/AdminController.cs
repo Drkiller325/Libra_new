@@ -81,10 +81,7 @@ namespace Web.Controllers
             {
                 try
                 {
-                    var addUser = await _mediator.Send(new AddUserCommand
-                    {
-                        Data = model
-                    });
+                    var addUser = await _mediator.Send(model);
 
                     if (addUser)
                     {
@@ -152,10 +149,7 @@ namespace Web.Controllers
             {
                 try
                 {
-                    var editUser = await _mediator.Send(new EditUserCommand()
-                    {
-                        Data = model
-                    });
+                    var editUser = await _mediator.Send(model);
 
                     if (editUser) return RedirectToAction("Index");
                     else

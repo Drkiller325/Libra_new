@@ -10,7 +10,7 @@ namespace Application.Issues.ViewModels
 {
     public class AddIssueViewModel : IRequest
     {
-        public PosesGridViewModel Pos { get; set; }
+        public IEnumerable<PosesGridViewModel> Pos { get; set; }
         public int TypeId { get; set; }
         public int SubTypeId { get; set; }
         public int ProblemId { get; set; }
@@ -20,6 +20,7 @@ namespace Application.Issues.ViewModels
         public string Solution { get; set; }
         public int AssignedToId { get; set; }
         public string Memo { get; set; }
+
 
     }
 }

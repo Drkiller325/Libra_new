@@ -1,4 +1,5 @@
 ﻿using Application.Issues.Queries;
+using Application.Issues.ViewModels;
 using Application.Poses.Queries;
 using MediatR;
 using System;
@@ -61,9 +62,17 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetEditIssuePos(int id)
+        public async Task<ActionResult> GetEditIssuePos(int id)
         {
-            return View("_GetAddPosIssue", id);
+            var pos = await _mediator.Send(new GetPosByIdGridQuery() { Id = id });
+            var priorityList = await _mediator.Send(new GetPriorityListQuery());
+
+            AddIssueViewModel model = new AddIssueViewModel
+            {
+                Pos = pos,
+                PriorityList = priorityList
+            };
+            return View("_GetAddPosIssue", model);
         }
     }
 }

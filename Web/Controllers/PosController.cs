@@ -106,10 +106,7 @@ namespace Libra.Controllers
             {
                 try
                 {
-                    var addPos = await _mediator.Send(new AddPosCommand
-                    {
-                        Data = model
-                    });
+                    var addPos = await _mediator.Send(model);
 
                     if(addPos)
                     {
@@ -245,10 +242,7 @@ namespace Libra.Controllers
             {
                 try
                 {
-                    var editPos = await _mediator.Send(new EditPosCommand()
-                    {
-                        Data = model
-                    });
+                    var editPos = await _mediator.Send(model);
 
                     if (editPos) return RedirectToAction("Index");
                     else

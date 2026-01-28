@@ -212,7 +212,9 @@
     <Compile Include="Interfaces\IDateTime.cs" />
     <Compile Include="Issues\Queries\GetIssuesByPosIdQuery.cs" />
     <Compile Include="Issues\Queries\GetIssuesGridQuery.cs" />
+    <Compile Include="Issues\Queries\GetPriorityListQuery.cs" />
     <Compile Include="Issues\ViewModels\AddIssueViewModel.cs" />
+    <Compile Include="Issues\ViewModels\IssueLogsViewModel.cs" />
     <Compile Include="Issues\ViewModels\Priority.cs" />
     <Compile Include="Poses\Commands\AddPosCommand.cs" />
     <Compile Include="Poses\Commands\DeletePosCommand.cs" />

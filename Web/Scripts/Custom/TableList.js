@@ -156,19 +156,16 @@
             }
         }
     }),
-    AddIssuePosItem: () => ({
-        ajax: {
-            url: '/Issue/GetIssuePos',
-            type: 'GET',
-            dataSrc: ''
-        },
+    AddIssuePosItem: (data) => ({
+        data: data,
         dom: 't',
         columns: [
             { visible: false, data: 'Id' },
             { data: 'Name', title: 'Pos Name' },
             { data: 'Telephone', title: 'Telephone' },
             { data: 'Address', title: 'Address' },
-            { data: 'City', title: 'City' }
+            { data: 'City', title: 'City' },
+            { data: 'IssueCount', visible: false}
         ]
     }),
 };
