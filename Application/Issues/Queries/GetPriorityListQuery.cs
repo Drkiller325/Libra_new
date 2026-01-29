@@ -6,16 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Application.Issues.Queries
 {
-    public class GetPriorityListQuery : IRequest<IEnumerable<Priority>>
+    public class GetPriorityListQuery : IRequest<SelectList>
     {
     }
 
-    public class GetPriorityListQueryHandler : IRequestHandler<GetPriorityListQuery, IEnumerable<Priority>>
+    public class GetPriorityListQueryHandler : IRequestHandler<GetPriorityListQuery, SelectList>
     {
-        public Task<IEnumerable<Priority>> Handle(GetPriorityListQuery request, CancellationToken cancellationToken)
+        public Task<SelectList> Handle(GetPriorityListQuery request, CancellationToken cancellationToken)
         {
             var priorityList =  new List<Priority>() {
                 new Priority() { Name = "Very Low", Value = "Very Low"  },
@@ -25,7 +26,9 @@ namespace Application.Issues.Queries
                 new Priority() { Name = "Very High", Value = "Very High"}
             };
 
-            return Task.FromResult<IEnumerable<Priority>>(priorityList);
+            var result = new SelectList(priorityList, "Name", "Value");
+
+            return Task.FromResult<SelectList>(result);
         }
     }
 }

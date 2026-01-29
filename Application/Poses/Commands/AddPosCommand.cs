@@ -31,9 +31,6 @@ namespace Application.Poses.Commands
 
             if (ifExists) throw new Exception("Pos Already Exists");
 
-            var City = await _context.Cities.FirstOrDefaultAsync(x => x.Id == model.CityId);
-            var ConnType = await _context.ConnectionTypes.FirstOrDefaultAsync(x => x.Id == model.ConnectionTypeId);
-
             var selectedDays = string.Join(",", model.ClosingDays
                                                      .Where(x => x.IsChecked)
                                                      .Select(x => x.Day)
@@ -52,8 +49,8 @@ namespace Application.Poses.Commands
                 AfternoonClosing = model.AfternoonClosing,
                 InsertDate = DateTime.Now,
                 DaysClosed = selectedDays,
-                City = City,
-                ConnectionType = ConnType
+                CityId = model.CityId,
+                ConnectionTypeId = model.ConnectionTypeId
             };
 
             _context.Pos.AddOrUpdate(pos);

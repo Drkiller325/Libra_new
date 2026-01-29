@@ -210,11 +210,19 @@
     <Compile Include="Interfaces\IAppDbContext.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
+    <Compile Include="Issues\Commands\AddIssueCommandHandler.cs" />
+    <Compile Include="Issues\Queries\GetIssueProblemQuery.cs" />
     <Compile Include="Issues\Queries\GetIssuesByPosIdQuery.cs" />
     <Compile Include="Issues\Queries\GetIssuesGridQuery.cs" />
+    <Compile Include="Issues\Queries\GetIssueStatusesQuery.cs" />
+    <Compile Include="Issues\Queries\GetIssueSubTypeQuery.cs" />
+    <Compile Include="Issues\Queries\GetIssueTypesQuery.cs" />
     <Compile Include="Issues\Queries\GetPriorityListQuery.cs" />
+    <Compile Include="Issues\ViewModels\AddIssueValidator.cs" />
     <Compile Include="Issues\ViewModels\AddIssueViewModel.cs" />
     <Compile Include="Issues\ViewModels\IssueLogsViewModel.cs" />
+    <Compile Include="Issues\ViewModels\IssueStatusViewModel.cs" />
+    <Compile Include="Issues\ViewModels\IssueTypeViewModel.cs" />
     <Compile Include="Issues\ViewModels\Priority.cs" />
     <Compile Include="Poses\Commands\AddPosCommand.cs" />
     <Compile Include="Poses\Commands\DeletePosCommand.cs" />
@@ -262,9 +270,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Issues\Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

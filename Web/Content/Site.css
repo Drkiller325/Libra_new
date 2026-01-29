@@ -177,3 +177,6 @@ hr {
     position: relative;
 }
 
+textarea {
+    resize: none;
+}
