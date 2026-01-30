@@ -1,4 +1,5 @@
-﻿using Application.Issues.Queries;
+﻿using Application.Issues.Commands;
+using Application.Issues.Queries;
 using Application.Issues.ViewModels;
 using Application.Poses.Queries;
 using Application.Users.Queries;
@@ -293,6 +294,30 @@ namespace Web.Controllers
                     return View("_GetEditIssue", model);
                 }
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetIssueDetails(int id)
+        {
+            var issue = await _mediator.Send(new GetIssueDetailsQuery() { Id = id });
+
+            return View("_GetIssueDetails", issue);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetDeleteIssue(int id)
+        {
+            var issue = await _mediator.Send(new GetIssueDetailsQuery() { Id = id });
+
+            return View("_GetDeleteIssue", issue);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteIssue(int id)
+        {
+            await _mediator.Send(new DeleteIssueCommand() { Id = id });
+
+            return RedirectToAction("Index");
         }
     }
 }

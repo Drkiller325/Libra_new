@@ -2433,6 +2433,8 @@
     <Content Include="Views\Issue\_GetAddIssue.cshtml" />
     <Content Include="Views\Issue\_GetAddPosIssue.cshtml" />
     <Content Include="Views\Issue\_GetEditIssue.cshtml" />
+    <Content Include="Views\Issue\_GetIssueDetails.cshtml" />
+    <Content Include="Views\Issue\_GetDeleteIssue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

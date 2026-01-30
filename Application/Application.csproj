@@ -211,8 +211,10 @@
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
     <Compile Include="Issues\Commands\AddIssueCommandHandler.cs" />
+    <Compile Include="Issues\Commands\DeleteIssueCommand.cs" />
     <Compile Include="Issues\Commands\EditIssueCommandHandler.cs" />
     <Compile Include="Issues\Queries\GetIssueByIdQuery.cs" />
+    <Compile Include="Issues\Queries\GetIssueDetailsQuery.cs" />
     <Compile Include="Issues\Queries\GetIssueLogsQuery.cs" />
     <Compile Include="Issues\Queries\GetIssueProblemQuery.cs" />
     <Compile Include="Issues\Queries\GetIssuesGridQuery.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="Issues\ViewModels\AddIssueViewModel.cs" />
     <Compile Include="Issues\ViewModels\EditIssueValidator.cs" />
     <Compile Include="Issues\ViewModels\EditIssueViewModel.cs" />
+    <Compile Include="Issues\ViewModels\IssueDetailsViewModel.cs" />
     <Compile Include="Issues\ViewModels\IssueStatusViewModel.cs" />
     <Compile Include="Issues\ViewModels\IssueTypeViewModel.cs" />
     <Compile Include="Issues\ViewModels\LogGridViewModel.cs" />
