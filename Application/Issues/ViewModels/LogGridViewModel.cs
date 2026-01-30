@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Issues.ViewModels
 {
-    public class IssueLogsViewModel
+    public class LogGridViewModel
     {
         public string Date { get; set; }
         public string Action { get; set; }

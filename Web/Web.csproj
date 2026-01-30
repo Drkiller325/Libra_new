@@ -2432,6 +2432,7 @@
     <Content Include="Views\Admin\_GetAddUser.cshtml" />
     <Content Include="Views\Issue\_GetAddIssue.cshtml" />
     <Content Include="Views\Issue\_GetAddPosIssue.cshtml" />
+    <Content Include="Views\Issue\_GetEditIssue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -157,8 +157,8 @@
         }
     }),
     AddIssuePosItem: (data) => ({
-        data: data,
-        dom: 't',
+        data: data.pos,
+        dom: 'rt',
         columns: [
             { visible: false, data: 'Id' },
             { data: 'Name', title: 'Pos Name' },
@@ -167,5 +167,31 @@
             { data: 'City', title: 'City' },
             { data: 'IssueCount', visible: false}
         ]
+    }),
+    IssueLogs: (data) => ({
+        data: data.logs,
+        dom: 'lrtip',
+        columns: [
+            { data: 'Date', title: 'Date' },
+            { data: 'Action', title: 'Action' },
+            { data: 'User', title: 'User' },
+            { data: 'Notes', title: 'Notes' }
+        ],
+        language: {
+            lengthMenu: "Show _MENU_ entries",
+            info: "Showing _START_ to _END_ of _TOTAL_ Positions",
+            paginate: {
+                firstLast: false,
+                previous: "Prev",
+                next: "Next"
+            }
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        }
     }),
 };

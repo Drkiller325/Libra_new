@@ -5,6 +5,7 @@ using Application.Users.Queries;
 using FluentValidation;
 using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -15,10 +16,12 @@ namespace Web.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IValidator<AddIssueViewModel> _AddIssueValidator;
-        public IssueController(IMediator mediator, IValidator<AddIssueViewModel> AddIssueValidator)
+        private readonly IValidator<EditIssueViewModel> _EditIssueValidator;
+        public IssueController(IMediator mediator, IValidator<AddIssueViewModel> AddIssueValidator, IValidator<EditIssueViewModel> editIssueValidator)
         {
             _mediator = mediator;
             _AddIssueValidator = AddIssueValidator;
+            _EditIssueValidator = editIssueValidator;
         }
         // GET: Issue
         public ActionResult Index()
@@ -188,6 +191,106 @@ namespace Web.Controllers
                     ViewBag.Assigned = new SelectList(AssignedTo, "Id", "Role");
 
                     return View("_GetAddPosIssue", model);
+                }
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetEditIssue(int id)
+        {
+            var model = await _mediator.Send(new GetIssueByIdQuery() { Id = id});
+
+            var priorityList = await _mediator.Send(new GetPriorityListQuery());
+            var IssueTypes = await _mediator.Send(new GetIssueTypesQuery());
+            var IssueStatuses = await _mediator.Send(new GetIssueStatusesQuery());
+            var AssignedTo = await _mediator.Send(new GetUserRolesQuery());
+
+            ViewBag.Statuses = new SelectList(IssueStatuses, "Id", "Status"); ;
+            ViewBag.Types = new SelectList(IssueTypes, "Id", "Type");
+            ViewBag.Assigned = new SelectList(AssignedTo, "Id", "Role");
+
+            model.PriorityList = priorityList;
+
+            return View("_GetEditIssue", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditIssue(EditIssueViewModel model)
+        {
+            var validationResult = _EditIssueValidator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                var priorityList = await _mediator.Send(new GetPriorityListQuery());
+                var IssueTypes = await _mediator.Send(new GetIssueTypesQuery());
+                var IssueStatuses = await _mediator.Send(new GetIssueStatusesQuery());
+                var AssignedTo = await _mediator.Send(new GetUserRolesQuery());
+                var logs = await _mediator.Send(new GetIssueLogsQuery() { Id = model.Id });
+                var pos = await _mediator.Send(new GetPosByIdGridQuery() { Id = model.PosId });
+
+                ViewBag.Statuses = new SelectList(IssueStatuses, "Id", "Status"); ;
+                ViewBag.Types = new SelectList(IssueTypes, "Id", "Type");
+                ViewBag.Assigned = new SelectList(AssignedTo, "Id", "Role");
+
+                model.PriorityList = priorityList;
+                model.Logs = logs;
+                model.Pos = pos.ToList();
+
+                return View("_GetEditIssue", model);
+            }
+            else
+            {
+                try
+                {
+                    var editPos = await _mediator.Send(model);
+
+                    if (editPos) return RedirectToAction("Index");
+                    else
+                    {
+                        var priorityList = await _mediator.Send(new GetPriorityListQuery());
+                        var IssueTypes = await _mediator.Send(new GetIssueTypesQuery());
+                        var IssueStatuses = await _mediator.Send(new GetIssueStatusesQuery());
+                        var AssignedTo = await _mediator.Send(new GetUserRolesQuery());
+                        var logs = await _mediator.Send(new GetIssueLogsQuery() { Id = model.Id });
+                        var pos = await _mediator.Send(new GetPosByIdGridQuery() { Id = model.PosId });
+
+                        ViewBag.Statuses = new SelectList(IssueStatuses, "Id", "Status"); ;
+                        ViewBag.Types = new SelectList(IssueTypes, "Id", "Type");
+                        ViewBag.Assigned = new SelectList(AssignedTo, "Id", "Role");
+
+                        model.PriorityList = priorityList;
+                        model.Logs = logs;
+                        model.Pos = pos.ToList();
+
+                        return View("_GetEditIssue", model);
+                    }
+                }
+                catch (Exception e)
+                {
+                    var priorityList = await _mediator.Send(new GetPriorityListQuery());
+                    var IssueTypes = await _mediator.Send(new GetIssueTypesQuery());
+                    var IssueStatuses = await _mediator.Send(new GetIssueStatusesQuery());
+                    var AssignedTo = await _mediator.Send(new GetUserRolesQuery());
+                    var logs = await _mediator.Send(new GetIssueLogsQuery() { Id = model.Id });
+                    var pos = await _mediator.Send(new GetPosByIdGridQuery() { Id = model.PosId });
+
+                    ViewBag.Statuses = new SelectList(IssueStatuses, "Id", "Status"); ;
+                    ViewBag.Types = new SelectList(IssueTypes, "Id", "Type");
+                    ViewBag.Assigned = new SelectList(AssignedTo, "Id", "Role");
+
+                    ModelState.AddModelError("", e.Message);
+
+                    model.PriorityList = priorityList;
+                    model.Logs = logs;
+                    model.Pos = pos.ToList();
+
+                    return View("_GetEditIssue", model);
                 }
             }
         }
